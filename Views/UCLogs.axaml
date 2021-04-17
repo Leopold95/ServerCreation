@@ -12,7 +12,7 @@
 	
 	
 	<Grid>
-		<TextBox Text="{Binding TextLogs.Value}"/>
+		<TextBox Text="{Binding TextLogs.Value}" Margin="5"/>
 	</Grid>
 	
 </UserControl>

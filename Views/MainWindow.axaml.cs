@@ -46,7 +46,7 @@ namespace ServerCreation.Views
             DataContext = contentControl;
         }
 
-        public void OnButtonLogsClick()
+        public void OnButtonLogsClick(object sender, RoutedEventArgs args)
         {
             contentControl.Content = new UCLogs();
             DataContext = contentControl;

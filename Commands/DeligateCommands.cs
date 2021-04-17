@@ -18,7 +18,7 @@ namespace ServerCreation.Commands
 
             UCServerCreateViewModel.FileLocation.Value = string.Join("", await openFolderDialog.ShowAsync(mv));
         }
-        public static async void DowloadCommand(string selectedVer, string selectedCore, string fileLoc, string filename)
+        public static void DowloadCommand(string selectedVer, string selectedCore, string fileLoc, string filename)
         {
             if(selectedCore != null && selectedVer != null)
             {
@@ -27,15 +27,13 @@ namespace ServerCreation.Commands
                     VersionsContoller.VersionsManager(selectedVer + "-" + selectedCore, $"{fileLoc}" + "\\" + filename + ".jar");
                 }
                 else
-                { 
-                    var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Info", "Расположения или имя файла недопустимы!");
-                    await messageBoxStandardWindow.Show();                
+                {
+                    UCLogsViewModel.TextLogs.Value += "\nРасположения или имя файла недопустимы!";          
                 }
             }
             else
             {
-                var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Info", "Выберите версию и ядро");
-                await messageBoxStandardWindow.Show();
+                UCLogsViewModel.TextLogs.Value += "\nВыберите версию и ядро";
             }
         }
 

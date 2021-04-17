@@ -9,6 +9,6 @@ namespace ServerCreation.ViewModels
 {
     public class UCLogsViewModel
     {
-        public ReactiveProperty<string> TextLogs { get; set; } = new();
+        public static ReactiveProperty<string> TextLogs { get; set; } = new();
     }
 }
