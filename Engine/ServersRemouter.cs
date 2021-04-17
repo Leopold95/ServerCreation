@@ -50,6 +50,8 @@ namespace ServerCreation.Engine
 
                 streamWr = process.StandardInput;
 
+                PID = process.Id;
+
                 void p_OutputDataReceived(object sender, DataReceivedEventArgs e) => USServerStarterViewModel.TextIn.Value += $"\n{e.Data}";
                 void p_ErrorDataRecived(object sender, DataReceivedEventArgs e) => USServerStarterViewModel.TextIn.Value += $"\n{e.Data}";
             }
