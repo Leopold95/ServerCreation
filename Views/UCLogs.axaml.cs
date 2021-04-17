@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using ServerCreation.ViewModels;
 
 namespace ServerCreation.Views
 {
@@ -14,6 +15,7 @@ namespace ServerCreation.Views
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+            DataContext = new UCLogsViewModel();
         }
     }
 }

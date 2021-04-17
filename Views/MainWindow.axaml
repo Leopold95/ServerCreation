@@ -30,7 +30,7 @@
 		<StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1" >
 			
 			<Button Content="Создать сервер" Height="40" Click="ChangeServerClick" Grid.Column="0"/>
-			<Button Content="Логи" Height="40" VerticalAlignment="Top" Grid.Column="1"/>
+			<Button Content="Логи" Height="40" VerticalAlignment="Top" Grid.Column="1" Click="OnButtonLogsClick"/>
 			<Button Content="Запустить сервер" Height="40" VerticalAlignment="Top" Click="ServerStarter_CLick" Grid.Column="2" />
 			<Button Content="Настройки" Height="40" VerticalAlignment="Top" Click="OnBtnOptionsClick" Grid.Column="3" />
 

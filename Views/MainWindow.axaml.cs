@@ -46,12 +46,11 @@ namespace ServerCreation.Views
             DataContext = contentControl;
         }
 
-        public async void ShowMessageBox()
+        public void OnButtonLogsClick()
         {
-            var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Info", "Выберите версию и ядро");
-            await messageBoxStandardWindow.ShowDialog(GetWindow());
+            contentControl.Content = new UCLogs();
+            DataContext = contentControl;
         }
-            Window GetWindow() => (Window)this.VisualRoot;
 
 
     }
