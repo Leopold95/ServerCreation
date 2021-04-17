@@ -1,0 +1,64 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:vm="using:ServerCreation.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:c="clr-namespace:ListBoxItemUpdateBug;assembly=ListBoxItemUpdateBug"
+			 
+			 xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+			 xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
+			 
+             mc:Ignorable="d" Width="800" Height="410" 
+             x:Class="ServerCreation.Views.UCSeverCreate">
+
+	<Design.DataContext>
+		<vm:UCServerCreateViewModel/>
+	</Design.DataContext>
+	
+	<UserControl.Styles>
+		<Style Selector="Button">
+			<Setter Property="HorizontalContentAlignment" Value="Center"/> 
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="Margin" Value="0.5"/>
+		</Style>
+	</UserControl.Styles>
+
+	
+	<Grid>		
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="150"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+
+			
+		<ListBox  Grid.Row="0" Grid.Column="0" Items="{Binding Versions}" SelectedItem="{Binding SelectedVersion}"/>
+		
+
+		<Grid Grid.Column="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="205"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+
+			
+			<Grid ColumnDefinitions="170, *"  Grid.Row="0" Background="AliceBlue">
+				<ListBox Grid.Column="0" Items="{Binding ServerCores}" SelectedItem="{Binding SelectedCore}"/>
+				<Button Content="Скачать" Command="{Binding DowloadCommand}" Grid.Column="1"/>
+			</Grid>
+			
+			
+			<TextBox Grid.Row="1" Text="{Binding TextLogs.Value, Mode=OneWay}" IsVisible="{Binding IsTextLogsVisibly.Value}" IsReadOnly="True" Margin="5"/>
+
+			
+			<Grid RowDefinitions="30, 30, 30, *" ColumnDefinitions="200, *" Grid.Row="1" Background="Beige" IsVisible="{Binding IsServerDowloaderVisible.Value}">
+				<Button Grid.Row="0" Grid.Column="0" Content="Выберите путь загрузки" Command="{Binding ChangeDowloadFolder}"/>
+				<TextBox Text="{Binding FileLocation.Value}" Grid.Row="0" Grid.Column="1"/>
+				
+				<TextBlock Text="Введите имя сервера" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0, 0, 0"/>
+				<TextBox Text="{Binding FileName.Value}" Grid.Row="1" Grid.Column="1"/>
+				
+				<ProgressBar Value="{Binding DowloadPersents.Value}" Maximum="100" Grid.Row="2" Grid.Column="0" Height="20"/>
+			</Grid>			
+		</Grid>
+	</Grid>
+</UserControl>

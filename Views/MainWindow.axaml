@@ -1,0 +1,41 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:ServerCreation.ViewModels"
+		xmlns:v="using:ServerCreation.Views"
+		xmlns:rxui="http://reactiveui.net"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" Width="800" Height="450"
+        x:Class="ServerCreation.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Server Creation">
+
+	<Design.DataContext>
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
+
+	<Window.Styles>
+		<Style Selector="Button">
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+		</Style>
+	</Window.Styles>
+	
+
+
+	<Grid ColumnDefinitions="800, *, 200" RowDefinitions="410, *">
+		
+		<ContentControl x:Name="contentControl" Name="contentControl"  Grid.Row="0" Grid.Column="0"/>
+
+		<StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1" >
+			
+			<Button Content="Создать сервер" Height="40" Click="ChangeServerClick" Grid.Column="0"/>
+			<Button Content="Логи" Height="40" VerticalAlignment="Top" Grid.Column="1"/>
+			<Button Content="Запустить сервер" Height="40" VerticalAlignment="Top" Click="ServerStarter_CLick" Grid.Column="2" />
+			<Button Content="Настройки" Height="40" VerticalAlignment="Top" Click="OnBtnOptionsClick" Grid.Column="3" />
+
+		</StackPanel>
+		
+	</Grid>
+
+</Window>

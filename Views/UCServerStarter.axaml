@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:vm="using:ServerCreation.ViewModels"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ServerCreation.Views.UCServerStarter">
+
+	<Design.DataContext>
+		<vm:USServerStarterViewModel/>
+	</Design.DataContext>
+
+
+	<Grid ColumnDefinitions="200, *" RowDefinitions="*, 40">
+		<Button Content="ТЕстовый запуск" Grid.Column="0" Command="{Binding TestCommand}"/>
+
+		<TextBox Text="{Binding TextIn.Value}" Grid.Column="1" Grid.Row="0" IsReadOnly="True"/>
+		<TextBox Text="{Binding TextOut.Value}" Grid.Column="1" Grid.Row="1"/>
+		<Button Content="Send" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Command="{Binding Send}"/>
+	</Grid>
+</UserControl>
