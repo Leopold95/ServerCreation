@@ -8,6 +8,7 @@ namespace ServerCreation.Commands
 {
     public class DeligateCommands 
     {
+        //UCServerCreateVM Commands
         public static async void ChangeDowloadFolder()
         {
             MainWindow mv = new MainWindow();
@@ -17,16 +18,6 @@ namespace ServerCreation.Commands
 
             UCServerCreateViewModel.FileLocation.Value = string.Join("", await openFolderDialog.ShowAsync(mv));
         }
-        public static async void ChangeJavaLocationFolderCommand()
-        {
-            MainWindow mv = new MainWindow();
-
-            OpenFolderDialog openFolderDialog = new OpenFolderDialog();
-            openFolderDialog.Title = "Укажите путь к Java";
-
-            UCOptionsViewModel.JavaFolder.Value = string.Join("", await openFolderDialog.ShowAsync(mv));
-        }
-
         public static async void DowloadCommand(string selectedVer, string selectedCore, string fileLoc, string filename)
         {
             if(selectedCore != null && selectedVer != null)
@@ -47,6 +38,19 @@ namespace ServerCreation.Commands
                 await messageBoxStandardWindow.Show();
             }
         }
+
+        //UCOptionsVM Commands
+        public static async void ChangeJavaLocationFolderCommand()
+        {
+            MainWindow mv = new MainWindow();
+
+            OpenFolderDialog openFolderDialog = new OpenFolderDialog();
+            openFolderDialog.Title = "Укажите путь к Java";
+
+            UCOptionsViewModel.JavaFolder.Value = string.Join("", await openFolderDialog.ShowAsync(mv));
+        }
+
+        //UCServerStarter 
         public static void SendCommandToServer()
         {
             try
@@ -69,10 +73,5 @@ namespace ServerCreation.Commands
             USServerStarterViewModel.TextIn.Value += Environment.OSVersion.Platform;
         }
 
-        //UCServerCreateVM Commands
-
-        //UCOptionsVM Commands
-
-        //UC
     }
 }
