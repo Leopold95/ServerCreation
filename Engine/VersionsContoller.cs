@@ -1,4 +1,5 @@
-﻿using ServerCreation.Views;
+﻿using ServerCreation.ViewModels;
+using ServerCreation.Views;
 
 namespace ServerCreation.Engine
 {
@@ -18,8 +19,7 @@ namespace ServerCreation.Engine
                 //case "":
                 //    break;
                 default:
-                    var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Info", "Выбранного сочетания версия + ядро не существует");
-                    //await messageBoxStandardWindow.ShowDialog(mw);
+                    UCLogsViewModel.TextLogs.Value += "\nВыбранного сочетания версия + ядро не существует";
                     break;
             }
         }
