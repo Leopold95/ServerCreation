@@ -30,7 +30,7 @@ namespace ServerCreation.Engine
                 messageBoxStandardWindow.Show();
             }
 
-            async void OnDowloadComplited() 
+            void OnDowloadComplited() 
             {
                 UCServerCreateViewModel.DowloadPersents.Value = 0;
 
