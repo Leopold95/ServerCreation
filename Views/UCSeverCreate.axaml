@@ -45,6 +45,7 @@
 				<ListBox Grid.Column="0" Items="{Binding ServerCores}" SelectedItem="{Binding SelectedCore}"/>
 				<Button Content="Скачать" Command="{Binding DowloadCommand}" Grid.Column="1"/>
 				<Button Grid.Column="1" HorizontalAlignment="Right" Command="{Binding ConnectCommnd}"/>
+				
 			</Grid>
 			
 			
