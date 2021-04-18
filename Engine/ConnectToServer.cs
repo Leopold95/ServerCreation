@@ -1,5 +1,6 @@
 ﻿using ServerCreation.ViewModels;
 using System;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -10,28 +11,33 @@ namespace ServerCreation.Engine
 {
     public static class ConnectToServer
     {
+        static NetworkStream stream;
+
         public static async Task Connect(string address, int port, string message)
         {
-            TcpClient tcpClient;
+           
             try
             {
-                tcpClient = new TcpClient(address, port);
-                NetworkStream stream = tcpClient.GetStream();
-                byte[] data = Encoding.UTF8.GetBytes(message);
-                stream.Write(data, 0, data.Length);
+                TcpClient newClient = new TcpClient();
+
+                // Соединяемся с сервером
+                await newClient.ConnectAsync(address, port);
+
+                stream = newClient.GetStream();
 
 
+                byte[] sendBytes = Encoding.UTF8.GetBytes("msg to server");
+                await stream.WriteAsync(sendBytes, 0, sendBytes.Length);
 
+                while (newClient.Connected == true)
+                {
+                    byte[] bytes = new byte[newClient.ReceiveBufferSize];
+                    int bytesRead = await stream.ReadAsync(bytes, 0, newClient.ReceiveBufferSize);
 
-                data = new Byte[256];
-                // String to store the response ASCII representation.
-                String responseData = String.Empty;
-
-                // Read the first batch of the TcpServer response bytes.
-                int bytes = stream.Read(data, 0, data.Length);
-                responseData = Encoding.UTF8.GetString(data, 0, bytes);
-                UCServerCreateViewModel.TextLogs.Value = responseData;
-                //Console.WriteLine("Received: {0}", responseData);
+                    // Строка, содержащая ответ от сервера
+                    string returnData = Encoding.UTF8.GetString(bytes);
+                    UCServerCreateViewModel.TextLogs.Value += returnData;
+                }
             }
             catch(Exception ex)
             {
