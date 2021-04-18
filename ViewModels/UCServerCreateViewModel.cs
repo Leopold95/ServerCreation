@@ -5,7 +5,6 @@ using ReactiveUI;
 using System.Reactive;
 using ServerCreation.Commands;
 using System.IO;
-using Avalonia.Controls;
 
 namespace ServerCreation.ViewModels
 {
@@ -27,6 +26,7 @@ namespace ServerCreation.ViewModels
                 IsServerDowloaderVisible.Value = true;
             }
         }
+
       
         public ObservableCollection<string> Versions { get; set; } = new ObservableCollection<string>()
         { 
