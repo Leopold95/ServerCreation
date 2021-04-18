@@ -15,16 +15,19 @@ namespace ServerCreation.ViewModels
   
         public UCServerCreateViewModel()
         {
-            if (settings.IsServer == true)
-            {
-                IsTextLogsVisibly.Value = true;
-                IsServerDowloaderVisible.Value = false;
-            }
-            else if (settings.IsServer == false)
-            {
-                IsTextLogsVisibly.Value = false;
-                IsServerDowloaderVisible.Value = true;
-            }
+
+            IsServerDowloaderVisible.Value = false;
+            IsTextLogsVisibly.Value = true;
+            //if (settings.IsServer == true)
+            //{
+            //    IsTextLogsVisibly.Value = true;
+            //    IsServerDowloaderVisible.Value = false;
+            //}
+            //else if (settings.IsServer == false)
+            //{
+            //    IsTextLogsVisibly.Value = false;
+            //    IsServerDowloaderVisible.Value = true;
+            //}
         }
 
       
@@ -47,5 +50,11 @@ namespace ServerCreation.ViewModels
 
         public ReactiveCommand<Unit, Unit> DowloadCommand { get; } = ReactiveUI.ReactiveCommand.Create(() => { DeligateCommands.DowloadCommand(SelectedVersion, SelectedCore, FileLocation.Value, FileName.Value); });
         public ReactiveCommand<Unit, Unit> ChangeDowloadFolder { get; } = ReactiveUI.ReactiveCommand.Create(() => { DeligateCommands.ChangeDowloadFolder(); });
+
+
+        public async void ConnectCommnd()
+        {
+            await ConnectToServer.Connect("127.0.0.1", 8888, "test");
+        }
     }
 }

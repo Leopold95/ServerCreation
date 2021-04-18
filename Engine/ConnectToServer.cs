@@ -30,7 +30,8 @@ namespace ServerCreation.Engine
                 // Read the first batch of the TcpServer response bytes.
                 int bytes = stream.Read(data, 0, data.Length);
                 responseData = Encoding.UTF8.GetString(data, 0, bytes);
-                Console.WriteLine("Received: {0}", responseData);
+                UCServerCreateViewModel.TextLogs.Value = responseData;
+                //Console.WriteLine("Received: {0}", responseData);
             }
             catch(Exception ex)
             {
