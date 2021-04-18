@@ -12,7 +12,7 @@
              x:Class="ServerCreation.Views.UCSeverCreate">
 
 	<Design.DataContext>
-		<vm:UCServerCreateViewModel/>
+		<vm:UCServerCreateViewModel/> 
 	</Design.DataContext>
 	
 	<UserControl.Styles>

@@ -12,43 +12,30 @@ namespace ServerCreation.Engine
     {
         public static async Task Connect(string address, int port, string message)
         {
+            TcpClient tcpClient;
             try
             {
-                IPEndPoint ipPoint = new IPEndPoint(IPAddress.Parse(address), port);
+                tcpClient = new TcpClient(address, port);
+                NetworkStream stream = tcpClient.GetStream();
+                byte[] data = Encoding.UTF8.GetBytes(message);
+                stream.Write(data, 0, data.Length);
 
-                Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                // подключаемся к удаленному хосту
-                await socket.ConnectAsync(ipPoint);
 
-                byte[] data = Encoding.Unicode.GetBytes(message);
 
-                SocketAsyncEventArgs e = new SocketAsyncEventArgs();
-                e.SetBuffer(data, 0, data.Length);
 
-                socket.SendAsync(e);
+                data = new Byte[256];
+                // String to store the response ASCII representation.
+                String responseData = String.Empty;
 
-                // получаем ответ
-                data = new byte[1024]; // буфер для ответа
-                StringBuilder builder = new StringBuilder();
-                int bytes = 0; // количество полученных байт
-
-                do
-                {
-                    bytes = socket.Receive(data, data.Length, 0);
-                    builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
-                }
-                while (socket.Available > 0);
-
-                UCServerCreateViewModel.TextLogs.Value += $"\nответ сервера: {builder}";
-
-                // закрываем сокет
-                socket.Shutdown(SocketShutdown.Both);
-                socket.Close();
+                // Read the first batch of the TcpServer response bytes.
+                int bytes = stream.Read(data, 0, data.Length);
+                responseData = Encoding.UTF8.GetString(data, 0, bytes);
+                Console.WriteLine("Received: {0}", responseData);
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-                UCServerCreateViewModel.TextLogs.Value = $"{ex.Message}";
+
             }
-        }
+        }   
     }
 }
