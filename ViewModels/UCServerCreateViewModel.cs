@@ -5,6 +5,9 @@ using ReactiveUI;
 using System.Reactive;
 using ServerCreation.Commands;
 using System.IO;
+using System.Text;
+using System.Threading;
+using System;
 
 namespace ServerCreation.ViewModels
 {
@@ -55,6 +58,18 @@ namespace ServerCreation.ViewModels
         public async void ConnectCommnd()
         {
             await ConnectToServer.Connect("127.0.0.1", 8888, "test");
+
+            try
+            {
+                Thread.Sleep(700);
+                byte[] data = Encoding.UTF8.GetBytes("msg to serer 2");
+                await ConnectToServer.stream.WriteAsync(data, 0, data.Length);
+            }
+            catch (Exception e)
+            {
+                UCLogsViewModel.TextLogs.Value += "\n" + e.Message;
+            }
+
         }
     }
 }
