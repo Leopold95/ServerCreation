@@ -11,33 +11,43 @@ namespace ServerCreation.Engine
 {
     public static class ConnectToServer
     {
-        public static NetworkStream stream;
+        public static Socket socketTcp;
 
         public static async Task Connect(string address, int port, string message)
-        {
-           
+        {       
             try
             {
-                TcpClient newClient = new TcpClient() { SendTimeout = 2000, ReceiveTimeout = 2000 };
+                IPEndPoint iPEndPoint = new IPEndPoint(IPAddress.Parse(address), port);
+                socketTcp = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-                // Соединяемся с сервером
-                await newClient.ConnectAsync(address, port);
-                newClient.Client.Disconnect(false);
+                var data = Encoding.UTF8.GetBytes(message); //получение данных для отправки сообщения 
 
-                stream = newClient.GetStream();
+                socketTcp.Connect(iPEndPoint); //Connect to socketTCP server
 
-                byte[] sendBytes = Encoding.UTF8.GetBytes("msg to server");
-                await stream.WriteAsync(sendBytes, 0, sendBytes.Length);
 
-                while (true)
+                SocketAsyncEventArgs args = new SocketAsyncEventArgs();
+                args.SetBuffer(data, 0, data.Length);
+                socketTcp.SendAsync(args); //Sand some data to server
+
+                testc:
+                //ожидание ответа от севрера
+                byte[] buffer = new byte[256];
+                int size = 0;
+                var answer = new StringBuilder();
+
+                do
                 {
-                    byte[] bytes = new byte[newClient.ReceiveBufferSize];
-                    int bytesRead = await stream.ReadAsync(bytes, 0, newClient.ReceiveBufferSize);
-
-                    // Строка, содержащая ответ от сервера
-                    string returnData = Encoding.UTF8.GetString(bytes);
-                    UCServerCreateViewModel.TextLogs.Value += returnData;
+                    size = socketTcp.Receive(buffer); //Рельно полученный басты из полученного сообщения 
+                    answer.Append(Encoding.UTF8.GetString(buffer, 0, size)); //из полученного обема данных форматируем одну строку 
                 }
+                while (socketTcp.Available > 0);
+
+                UCServerCreateViewModel.TextLogs.Value += $"\nОтвет от сервера: {answer}";
+
+                goto testc;
+                //socketTcp.Shutdown(SocketShutdown.Both);
+                //socketTcp.Close();
+
             }
             catch(Exception ex)
             {

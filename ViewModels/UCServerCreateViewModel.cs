@@ -59,17 +59,21 @@ namespace ServerCreation.ViewModels
         {
             await ConnectToServer.Connect("127.0.0.1", 8888, "test");
 
+        }
+
+        public async void ConnectCommnd2()
+        {
+
+
             try
             {
-                Thread.Sleep(700);
-                byte[] data = Encoding.UTF8.GetBytes("msg to serer 2");
-                await ConnectToServer.stream.WriteAsync(data, 0, data.Length);
+                var data = Encoding.UTF8.GetBytes("message 2");
+                ConnectToServer.socketTcp.Send(data);
             }
             catch (Exception e)
             {
                 UCLogsViewModel.TextLogs.Value += "\n" + e.Message;
             }
-
         }
     }
 }
