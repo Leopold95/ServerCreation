@@ -8,6 +8,7 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System;
+using System.Threading.Tasks;
 
 namespace ServerCreation.ViewModels
 {
@@ -58,22 +59,22 @@ namespace ServerCreation.ViewModels
         public async void ConnectCommnd()
         {
             await ConnectToServer.Connect("127.0.0.1", 8888, "test");
-
         }
 
         public async void ConnectCommnd2()
         {
-
-
-            try
+            
+            await Task.Factory.StartNew(() => 
             {
-                var data = Encoding.UTF8.GetBytes("message 2");
-                ConnectToServer.socketTcp.Send(data);
-            }
-            catch (Exception e)
-            {
-                UCLogsViewModel.TextLogs.Value += "\n" + e.Message;
-            }
+                try
+                {
+                    ConnectToServer.streamWriter.WriteLine("message 2");
+                }
+                catch
+                {
+
+                }
+            });
         }
     }
 }
