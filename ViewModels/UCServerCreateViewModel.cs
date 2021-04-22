@@ -19,22 +19,19 @@ namespace ServerCreation.ViewModels
   
         public UCServerCreateViewModel()
         {
-
-            IsServerDowloaderVisible.Value = false;
-            IsTextLogsVisibly.Value = true;
-            //if (settings.IsServer == true)
-            //{
-            //    IsTextLogsVisibly.Value = true;
-            //    IsServerDowloaderVisible.Value = false;
-            //}
-            //else if (settings.IsServer == false)
-            //{
-            //    IsTextLogsVisibly.Value = false;
-            //    IsServerDowloaderVisible.Value = true;
-            //}
+            if (settings.IsServer == true)
+            {
+                IsTextLogsVisibly.Value = true;
+                IsServerDowloaderVisible.Value = false;
+            }
+            else if (settings.IsServer == false)
+            {
+                IsTextLogsVisibly.Value = false;
+                IsServerDowloaderVisible.Value = true;
+            }
         }
 
-      
+
         public ObservableCollection<string> Versions { get; set; } = new ObservableCollection<string>()
         { 
             "1.7.10", "1.8.8", "1.9.4", "1.10.2", "1.11.2", "1.12.2", "1.13.2", "1.14.4", "1.15.2", "1.16.5"
@@ -63,18 +60,7 @@ namespace ServerCreation.ViewModels
 
         public async void ConnectCommnd2()
         {
-            
-            await Task.Factory.StartNew(() => 
-            {
-                try
-                {
-                    ConnectToServer.streamWriter.WriteLine("message 2");
-                }
-                catch
-                {
-
-                }
-            });
+            await ConnectToServer.SendMessage();
         }
     }
 }

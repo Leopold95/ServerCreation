@@ -18,23 +18,22 @@ namespace ServerCreation.Commands
 
             UCServerCreateViewModel.FileLocation.Value = string.Join("", await openFolderDialog.ShowAsync(mv));
         }
-        public static void DowloadCommand(string selectedVer, string selectedCore, string fileLoc, string filename)
+        public static async void DowloadCommand(string selectedVer, string selectedCore, string fileLoc, string filename)
         {
-            if(selectedCore != null && selectedVer != null)
+            if(UCOptionsViewModel.IsChecked.Value == false)
             {
-                if (fileLoc != "" & fileLoc != null & filename != "" & filename != null)
+                if (selectedCore != null && selectedVer != null)
                 {
-                    VersionsContoller.VersionsManager(selectedVer + "-" + selectedCore, $"{fileLoc}" + "\\" + filename + ".jar");
+                    if (fileLoc != "" & fileLoc != null & filename != "" & filename != null)
+                        VersionsContoller.VersionsManager(selectedVer + "-" + selectedCore, $"{fileLoc}" + "\\" + filename + ".jar");
+                    else
+                        UCLogsViewModel.TextLogs.Value += "\nРасположения или имя файла недопустимы!";
                 }
                 else
-                {
-                    UCLogsViewModel.TextLogs.Value += "\nРасположения или имя файла недопустимы!";          
-                }
+                    UCLogsViewModel.TextLogs.Value += "\nВыберите версию и ядро";
             }
             else
-            {
-                UCLogsViewModel.TextLogs.Value += "\nВыберите версию и ядро";
-            }
+                await ConnectToServer.SendMessage();
         }
 
         //UCOptionsVM Commands

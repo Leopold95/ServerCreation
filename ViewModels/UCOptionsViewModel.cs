@@ -27,7 +27,7 @@ namespace ServerCreation.ViewModels
         AppSettings settings = new AppSettings();
         AppSettings stg = AppSettings.GetSettings();
 
-        public ReactiveProperty<bool> IsChecked { get; set; } = new();
+        public static ReactiveProperty<bool> IsChecked { get; set; } = new();
         public ReactiveProperty<int> PortText { get; set; } = new();
         public ReactiveProperty<string> IpText { get; set; } = new();
         public static ReactiveProperty<string> JavaFolder { get; set; } = new();
