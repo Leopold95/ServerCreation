@@ -3,12 +3,15 @@ using ServerCreation.Engine;
 using ServerCreation.ViewModels;
 using ServerCreation.Views;
 using System;
+using System.Threading.Tasks;
 
 namespace ServerCreation.Commands
 {
     public class DeligateCommands 
     {
         //UCServerCreateVM Commands
+        static AppSettings settings = AppSettings.GetSettings();
+
         public static async void ChangeDowloadFolder()
         {
             MainWindow mv = new MainWindow();
@@ -18,9 +21,9 @@ namespace ServerCreation.Commands
 
             UCServerCreateViewModel.FileLocation.Value = string.Join("", await openFolderDialog.ShowAsync(mv));
         }
-        public static async void DowloadCommand(string selectedVer, string selectedCore, string fileLoc, string filename)
+        public static async Task DowloadCommand(string selectedVer, string selectedCore, string fileLoc, string filename)
         {
-            if(UCOptionsViewModel.IsChecked.Value == true)
+            if(settings.IsServer == false)
             {
                 if (selectedCore != null && selectedVer != null)
                 {
@@ -32,12 +35,16 @@ namespace ServerCreation.Commands
                 else
                     UCLogsViewModel.TextLogs.Value += "\nВыберите версию и ядро";
             }
-            else if (UCOptionsViewModel.IsChecked.Value == false)
+            else
             {
                 if (selectedCore != null && selectedVer != null)
                 {
-                    if (fileLoc != "" & fileLoc != null & filename != "" & filename != null)
-                        await ConnectToServer.SendMessage("jhvjhbjhvjmhb");
+                    if (filename != "" & filename != null)
+                    {
+                        ConnectToServer.Connect();
+                        await Task.Delay(500);
+                        await ConnectToServer.SendMessage(selectedVer + "-" + selectedCore, filename + ".jar");
+                    }
                     else
                         UCLogsViewModel.TextLogs.Value += "\nРасположения или имя файла недопустимы!";
                 }

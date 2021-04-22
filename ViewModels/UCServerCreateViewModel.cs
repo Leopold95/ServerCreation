@@ -51,16 +51,5 @@ namespace ServerCreation.ViewModels
 
         public ReactiveCommand<Unit, Unit> DowloadCommand { get; } = ReactiveUI.ReactiveCommand.Create(() => { DeligateCommands.DowloadCommand(SelectedVersion, SelectedCore, FileLocation.Value, FileName.Value); });
         public ReactiveCommand<Unit, Unit> ChangeDowloadFolder { get; } = ReactiveUI.ReactiveCommand.Create(() => { DeligateCommands.ChangeDowloadFolder(); });
-
-
-        public void ConnectCommnd()
-        {
-            ConnectToServer.Connect("127.0.0.1", 8888);
-        }
-
-        public async void ConnectCommnd2()
-        {
-            await ConnectToServer.SendMessage("");
-        }
     }
 }

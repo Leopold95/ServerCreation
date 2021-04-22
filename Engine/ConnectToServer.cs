@@ -15,50 +15,56 @@ namespace ServerCreation.Engine
         static TcpClient client;
         static byte[] buffer = new byte[512];
 
-        
-
-        public static void Connect(string address, int port)
+        static AppSettings settings = AppSettings.GetSettings();
+       
+        public static async void Connect()
         {
-            try
+            await Task.Run(() => 
             {
-                client = new TcpClient();
-                client.Connect(IPAddress.Parse(address), port);
-                client.GetStream().BeginRead(buffer, 0, buffer.Length, Server_MessageRecieved, null);
-
-                void Server_MessageRecieved(IAsyncResult ir)
+                try
                 {
-                    if (ir.IsCompleted)
+                    client = new TcpClient();
+                    client.Connect(IPAddress.Parse(settings.ServerIp), settings.ServerPort);
+                    client.GetStream().BeginRead(buffer, 0, buffer.Length, Server_MessageRecieved, null);
+
+                    void Server_MessageRecieved(IAsyncResult ir)
                     {
-                        try
+                        if (ir.IsCompleted)
                         {
-                            var streamGeted = client.GetStream().EndRead(ir);
-                            if (streamGeted > 0)
+                            try
                             {
-                                var temp = new byte[streamGeted];
-                                Array.Copy(buffer, 0, temp, 0, streamGeted);
-                                var messageGetted = Encoding.UTF8.GetString(temp);
+                                var streamGeted = client.GetStream().EndRead(ir);
+                                if (streamGeted > 0)
+                                {
+                                    var temp = new byte[streamGeted];
+                                    Array.Copy(buffer, 0, temp, 0, streamGeted);
+                                    var messageGetted = Encoding.UTF8.GetString(temp);
 
-                                UCServerCreateViewModel.TextLogs.Value += "\n" + messageGetted;
+                                    UCServerCreateViewModel.TextLogs.Value += "\n" + messageGetted;
+                                }
+
+                                Array.Clear(buffer, 0, buffer.Length);
+                                client.GetStream().BeginRead(buffer, 0, buffer.Length, Server_MessageRecieved, null);
                             }
-
-                            Array.Clear(buffer, 0, buffer.Length);
-                            client.GetStream().BeginRead(buffer, 0, buffer.Length, Server_MessageRecieved, null);
+                            catch (Exception exp) { UCLogsViewModel.TextLogs.Value += "\n" + exp.Message; }
                         }
-                        catch (Exception exp) { UCLogsViewModel.TextLogs.Value += "\n" + exp.Message; }
                     }
                 }
-            }
-            catch (Exception exp) { UCLogsViewModel.TextLogs.Value += "\n" + exp.Message; }
+                catch (Exception exp) { UCLogsViewModel.TextLogs.Value += "\n" + exp.Message; }
+            });
         }
 
-        public static async Task SendMessage(string verCore)
+        public static async Task SendMessage(string verCore, string fileName)
         {
-            try
+            await Task.Run(() => 
             {
-                var message = Encoding.UTF8.GetBytes(verCore);
-                client.GetStream().Write(message, 0, message.Length);
-            }
-            catch (Exception exp) { UCLogsViewModel.TextLogs.Value += "\n" + exp.Message; }
+                try
+                {
+                    var message = Encoding.UTF8.GetBytes(verCore + "^" + fileName);
+                    client.GetStream().Write(message, 0, message.Length);
+                }
+                catch (Exception exp) { UCLogsViewModel.TextLogs.Value += "\n" + exp.Message; }
+            });
         }
     }
 }
