@@ -4,6 +4,7 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 
@@ -14,9 +15,9 @@ namespace ServerCreation.Engine
         static TcpClient client;
         static byte[] buffer = new byte[512];
 
+        
 
-
-        public static async Task Connect(string address, int port, string message)
+        public static void Connect(string address, int port)
         {
             try
             {
@@ -37,36 +38,27 @@ namespace ServerCreation.Engine
                                 Array.Copy(buffer, 0, temp, 0, streamGeted);
                                 var messageGetted = Encoding.UTF8.GetString(temp);
 
-                                UCServerCreateViewModel.TextLogs.Value += messageGetted + "\n";
+                                UCServerCreateViewModel.TextLogs.Value += "\n" + messageGetted;
                             }
 
                             Array.Clear(buffer, 0, buffer.Length);
                             client.GetStream().BeginRead(buffer, 0, buffer.Length, Server_MessageRecieved, null);
                         }
-                        catch (Exception exp)
-                        {
-                            UCLogsViewModel.TextLogs.Value += "\n" + exp.Message;
-                        }
+                        catch (Exception exp) { UCLogsViewModel.TextLogs.Value += "\n" + exp.Message; }
                     }
                 }
             }
-            catch(Exception exp)
-            {
-                UCLogsViewModel.TextLogs.Value += exp.Message + "\n";
-            }
+            catch (Exception exp) { UCLogsViewModel.TextLogs.Value += "\n" + exp.Message; }
         }
 
-        public static async Task SendMessage()
+        public static async Task SendMessage(string verCore)
         {
             try
             {
-                var message = Encoding.UTF8.GetBytes("Test message to server");
+                var message = Encoding.UTF8.GetBytes(verCore);
                 client.GetStream().Write(message, 0, message.Length);
             }
-            catch(Exception exp)
-            {
-                UCLogsViewModel.TextLogs.Value += exp.Message + "\n";
-            }
+            catch (Exception exp) { UCLogsViewModel.TextLogs.Value += "\n" + exp.Message; }
         }
     }
 }

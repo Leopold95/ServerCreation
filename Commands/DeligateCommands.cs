@@ -32,8 +32,18 @@ namespace ServerCreation.Commands
                 else
                     UCLogsViewModel.TextLogs.Value += "\nВыберите версию и ядро";
             }
-            else
-                await ConnectToServer.SendMessage();
+            else if (UCOptionsViewModel.IsChecked.Value == true)
+            {
+                if (selectedCore != null && selectedVer != null)
+                {
+                    if (fileLoc != "" & fileLoc != null & filename != "" & filename != null)
+                        await ConnectToServer.SendMessage("jhvjhbjhvjmhb");
+                    else
+                        UCLogsViewModel.TextLogs.Value += "\nРасположения или имя файла недопустимы!";
+                }
+                else
+                    UCLogsViewModel.TextLogs.Value += "\nВыберите версию и ядро";
+            }              
         }
 
         //UCOptionsVM Commands

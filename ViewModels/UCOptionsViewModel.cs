@@ -1,16 +1,8 @@
-﻿using Avalonia.Controls;
-using Avalonia.Interactivity;
-using Reactive.Bindings;
+﻿using Reactive.Bindings;
 using ReactiveUI;
 using ServerCreation.Commands;
 using ServerCreation.Engine;
-using ServerCreation.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reactive;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ServerCreation.ViewModels
 {

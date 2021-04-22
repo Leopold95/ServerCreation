@@ -22,7 +22,7 @@ namespace ServerCreation.ViewModels
             if (settings.IsServer == true)
             {
                 IsTextLogsVisibly.Value = true;
-                IsServerDowloaderVisible.Value = false;
+                IsServerDowloaderVisible.Value = true;
             }
             else if (settings.IsServer == false)
             {
@@ -53,14 +53,14 @@ namespace ServerCreation.ViewModels
         public ReactiveCommand<Unit, Unit> ChangeDowloadFolder { get; } = ReactiveUI.ReactiveCommand.Create(() => { DeligateCommands.ChangeDowloadFolder(); });
 
 
-        public async void ConnectCommnd()
+        public void ConnectCommnd()
         {
-            await ConnectToServer.Connect("127.0.0.1", 8888, "test");
+            ConnectToServer.Connect("127.0.0.1", 8888);
         }
 
         public async void ConnectCommnd2()
         {
-            await ConnectToServer.SendMessage();
+            await ConnectToServer.SendMessage("");
         }
     }
 }

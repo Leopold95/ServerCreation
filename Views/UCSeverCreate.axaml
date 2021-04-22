@@ -50,9 +50,6 @@
 			</Grid>
 			
 			
-			<TextBox Grid.Row="1" Text="{Binding TextLogs.Value, Mode=OneWay}" IsVisible="{Binding IsTextLogsVisibly.Value}" IsReadOnly="True" Margin="5"/>
-
-			
 			<Grid RowDefinitions="30, 30, 30, *" ColumnDefinitions="200, *" Grid.Row="1" Background="Beige" IsVisible="{Binding IsServerDowloaderVisible.Value}">
 				<Button Grid.Row="0" Grid.Column="0" Content="Выберите путь загрузки" Command="{Binding ChangeDowloadFolder}"/>
 				<TextBox Text="{Binding FileLocation.Value}" Grid.Row="0" Grid.Column="1"/>
@@ -60,7 +57,9 @@
 				<TextBlock Text="Введите имя сервера" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0, 0, 0"/>
 				<TextBox Text="{Binding FileName.Value}" Grid.Row="1" Grid.Column="1"/>
 				
-				<ProgressBar Value="{Binding DowloadPersents.Value}" Maximum="100" Grid.Row="2" Grid.Column="0" Height="20"/>
+				<ProgressBar Value="{Binding DowloadPersents.Value}" Maximum="100" Grid.Row="2" Grid.ColumnSpan="2" Margin="10, 0, 10, 0" Height="20"/>
+
+				<TextBox Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding TextLogs.Value, Mode=OneWay}" IsVisible="{Binding IsTextLogsVisibly.Value}" IsReadOnly="True" Margin="5"/>
 			</Grid>			
 		</Grid>
 	</Grid>
