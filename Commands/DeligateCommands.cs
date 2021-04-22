@@ -20,7 +20,7 @@ namespace ServerCreation.Commands
         }
         public static async void DowloadCommand(string selectedVer, string selectedCore, string fileLoc, string filename)
         {
-            if(UCOptionsViewModel.IsChecked.Value == false)
+            if(UCOptionsViewModel.IsChecked.Value == true)
             {
                 if (selectedCore != null && selectedVer != null)
                 {
@@ -32,7 +32,7 @@ namespace ServerCreation.Commands
                 else
                     UCLogsViewModel.TextLogs.Value += "\nВыберите версию и ядро";
             }
-            else if (UCOptionsViewModel.IsChecked.Value == true)
+            else if (UCOptionsViewModel.IsChecked.Value == false)
             {
                 if (selectedCore != null && selectedVer != null)
                 {
