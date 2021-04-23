@@ -17,7 +17,7 @@ namespace ServerCreation.Engine
 
         static AppSettings settings = AppSettings.GetSettings();
        
-        public static async void Connect()
+        public static async Task Connect()
         {
             await Task.Run(() => 
             {
