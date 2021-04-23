@@ -50,7 +50,7 @@
 			
 			<Grid RowDefinitions="30, 30, 30, *" ColumnDefinitions="200, *" Grid.Row="1" Background="Beige" IsVisible="{Binding IsServerDowloaderVisible.Value}">
 				<Button Grid.Row="0" Grid.Column="0" Content="Выберите путь загрузки" Command="{Binding ChangeDowloadFolder}"/>
-				<TextBox Text="{Binding FileLocation.Value}" Grid.Row="0" Grid.Column="1"/>
+				<TextBox Text="{Binding FileLocation.Value}" TextWrapping="NoWrap" Grid.Row="0" Grid.Column="1"/>
 				
 				<TextBlock Text="Введите имя сервера" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0, 0, 0"/>
 				<TextBox Text="{Binding FileName.Value}" Grid.Row="1" Grid.Column="1"/>

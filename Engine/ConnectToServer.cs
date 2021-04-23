@@ -38,7 +38,7 @@ namespace ServerCreation.Engine
                                 {
                                     var temp = new byte[streamGeted];
                                     Array.Copy(buffer, 0, temp, 0, streamGeted);
-                                    var messageGetted = Encoding.UTF8.GetString(temp);
+                                    var messageGetted = Encoding.ASCII.GetString(temp);
 
                                     UCServerCreateViewModel.TextLogs.Value += "\n" + messageGetted;
                                 }
@@ -54,13 +54,13 @@ namespace ServerCreation.Engine
             });
         }
 
-        public static async Task SendMessage(string verCore, string fileName)
+        public static async void SendMessage(string verCore, string fileName)
         {
             await Task.Run(() => 
             {
                 try
                 {
-                    var message = Encoding.UTF8.GetBytes(verCore + "^" + fileName);
+                    var message = Encoding.ASCII.GetBytes(verCore + "^" + fileName);
                     client.GetStream().Write(message, 0, message.Length);
                 }
                 catch (Exception exp) { UCLogsViewModel.TextLogs.Value += "\n" + exp.Message; }

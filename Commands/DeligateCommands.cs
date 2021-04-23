@@ -43,7 +43,7 @@ namespace ServerCreation.Commands
                     {
                         ConnectToServer.Connect();
                         await Task.Delay(500);
-                        await ConnectToServer.SendMessage(selectedVer + "-" + selectedCore, filename + ".jar");
+                        ConnectToServer.SendMessage(selectedVer + "-" + selectedCore, filename + ".jar");
                     }
                     else
                         UCLogsViewModel.TextLogs.Value += "\nРасположения или имя файла недопустимы!";
