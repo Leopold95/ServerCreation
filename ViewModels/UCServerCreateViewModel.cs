@@ -17,7 +17,6 @@ namespace ServerCreation.ViewModels
         {
             SetSettings();
         }
-
         private void SetSettings()
         {
             if (settings.IsServer == true)
@@ -51,7 +50,7 @@ namespace ServerCreation.ViewModels
         static public ReactiveProperty<string> TextLogs { get; set; } = new();
         public ReactiveProperty<bool> IsTextLogsVisibly { get; set; } = new();
         public ReactiveProperty<bool> IsServerDowloaderVisible { get; set; } = new();
-        public static ReactiveProperty<string> FileLocation { get; set; } = new(Directory.GetCurrentDirectory());
+        public static ReactiveProperty<string> FileLocation { get; set; } = new();
         public static ReactiveProperty<string> FileName { get; set; } = new("server");
         public static ReactiveProperty<int> DowloadPersents { get; set; } = new();
         public ReactiveProperty<bool> IsFileLocEnabled { get; set; } = new();
