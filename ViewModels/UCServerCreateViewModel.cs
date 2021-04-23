@@ -15,15 +15,25 @@ namespace ServerCreation.ViewModels
   
         public UCServerCreateViewModel()
         {
+            SetSettings();
+        }
+
+        private void SetSettings()
+        {
             if (settings.IsServer == true)
             {
                 IsTextLogsVisibly.Value = true;
-                IsServerDowloaderVisible.Value = true;
+                IsFileLocEnabled.Value = false;
+                IsFileLocBtnEnebled.Value = false;
+                FileLocation.Value = "";
+
             }
             else if (settings.IsServer == false)
             {
                 IsTextLogsVisibly.Value = false;
-                IsServerDowloaderVisible.Value = true;
+                IsFileLocEnabled.Value = true;
+                IsFileLocBtnEnebled.Value = true;
+                FileLocation.Value = Directory.GetCurrentDirectory();
             }
         }
 
@@ -44,6 +54,10 @@ namespace ServerCreation.ViewModels
         public static ReactiveProperty<string> FileLocation { get; set; } = new(Directory.GetCurrentDirectory());
         public static ReactiveProperty<string> FileName { get; set; } = new("server");
         public static ReactiveProperty<int> DowloadPersents { get; set; } = new();
+        public ReactiveProperty<bool> IsFileLocEnabled { get; set; } = new();
+        public ReactiveProperty<bool> IsFileLocBtnEnebled { get; set; } = new();
+
+
 
         public ReactiveCommand<Unit, Unit> DowloadCommand { get; } = ReactiveUI.ReactiveCommand.Create(() => { DeligateCommands.DowloadCommand(SelectedVersion, SelectedCore, FileLocation.Value, FileName.Value); });
         public ReactiveCommand<Unit, Unit> ChangeDowloadFolder { get; } = ReactiveUI.ReactiveCommand.Create(() => { DeligateCommands.ChangeDowloadFolder(); });
