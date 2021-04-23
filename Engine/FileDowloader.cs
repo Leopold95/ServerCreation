@@ -1,4 +1,6 @@
-﻿using ServerCreation.ViewModels;
+﻿using Avalonia;
+using Avalonia.Threading;
+using ServerCreation.ViewModels;
 using System;
 using System.Net;
 using System.Threading.Tasks;
@@ -7,36 +9,32 @@ namespace ServerCreation.Engine
 {
     public static class FileDowloader
     {
-        public static string message;
-
         public static async Task DowloadServer(string url, string fileName)
         {
-            try
+            await Task.Run(() => 
             {
-                using (WebClient client = new WebClient())
+                try
                 {
-                    client.DownloadFileCompleted += (sender, e) => OnDowloadComplited();
-                    client.DownloadProgressChanged += (sender, e) => UCServerCreateViewModel.DowloadPersents.Value = e.ProgressPercentage;
+                    using (WebClient client = new WebClient())
+                    {                       
+                        Dispatcher.UIThread.InvokeAsync(new Action(() => { UCLogsViewModel.TextLogs.Value += $"\nЗагрузка начата"; }));
 
-                    client.DownloadFileAsync(new Uri(url), UCServerCreateViewModel.TextLogs.Value +  fileName);
+                        client.DownloadFileCompleted += (sender, e) => Dispatcher.UIThread.InvokeAsync(new Action(() => { UCLogsViewModel.TextLogs.Value += $"\nЗагрузка завершена"; }));
+
+                        client.DownloadProgressChanged += (sender, e) => Dispatcher.UIThread.InvokeAsync(new Action(() => { UCServerCreateViewModel.DowloadPersents.Value = e.ProgressPercentage; }));
+
+                        client.DownloadFile(new Uri(url), UCServerCreateViewModel.TextLogs.Value + fileName);
+                    }
                 }
+                catch (Exception exp) { UCLogsViewModel.TextLogs.Value += $"\n{exp.Message}"; }
 
-                message = "Загрузка начата";
-            }
-            catch (Exception exp)
-            {
-                var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager
-  .GetMessageBoxStandardWindow("title", exp.Message);
-                messageBoxStandardWindow.Show();
-            }
-
-            void OnDowloadComplited() 
-            {
-                UCServerCreateViewModel.DowloadPersents.Value = 0;
-
-                var messageBoxStandardWindow = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("Info", "DowloadComplited");
-                messageBoxStandardWindow.Show();
-            }
+                void OnDowloadComplited()
+                {
+                    UCServerCreateViewModel.DowloadPersents.Value = 0;
+                
+                    
+                }
+            });
         }
     }
 }

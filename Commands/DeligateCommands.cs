@@ -21,7 +21,7 @@ namespace ServerCreation.Commands
 
             UCServerCreateViewModel.FileLocation.Value = string.Join("", await openFolderDialog.ShowAsync(mv));
         }
-        public static async Task DowloadCommand(string selectedVer, string selectedCore, string fileLoc, string filename)
+        public static void DowloadCommand(string selectedVer, string selectedCore, string fileLoc, string filename)
         {
             if(settings.IsServer == false)
             {
@@ -42,7 +42,7 @@ namespace ServerCreation.Commands
                     if (filename != "" & filename != null)
                     {
                         ConnectToServer.Connect();
-                        await Task.Delay(500);
+                        Task.Delay(500);
                         ConnectToServer.SendMessage(selectedVer + "-" + selectedCore, filename + ".jar");
                     }
                     else
