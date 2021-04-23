@@ -8,7 +8,8 @@
         mc:Ignorable="d" Width="800" Height="450"
         x:Class="ServerCreation.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="Server Creation">
+        Title="Server Creation"
+		CanResize="False">
 
 	<Design.DataContext>
 		<vm:MainWindowViewModel/>
