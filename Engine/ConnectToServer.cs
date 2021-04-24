@@ -19,56 +19,53 @@ namespace ServerCreation.Engine
        
         public static async Task Connect()
         {
-            await Task.Run(() => 
+            try
             {
-                try
+                client = new TcpClient();
+                await client.ConnectAsync(IPAddress.Parse(settings.ServerIp), settings.ServerPort);
+                client.GetStream().BeginRead(buffer, 0, buffer.Length, Server_MessageRecieved, null);
+
+                void Server_MessageRecieved(IAsyncResult ir)
                 {
-                    client = new TcpClient();
-                    client.Connect(IPAddress.Parse(settings.ServerIp), settings.ServerPort);
-                    client.GetStream().BeginRead(buffer, 0, buffer.Length, Server_MessageRecieved, null);
-
-                    void Server_MessageRecieved(IAsyncResult ir)
+                    if (ir.IsCompleted)
                     {
-                        if (ir.IsCompleted)
+                        try
                         {
-                            try
+                            var streamGeted = client.GetStream().EndRead(ir);
+                            if (streamGeted > 0)
                             {
-                                var streamGeted = client.GetStream().EndRead(ir);
-                                if (streamGeted > 0)
-                                {
-                                    var temp = new byte[streamGeted];
-                                    Array.Copy(buffer, 0, temp, 0, streamGeted);
-                                    var messageGetted = Encoding.ASCII.GetString(temp);
+                                var temp = new byte[streamGeted];
+                                Array.Copy(buffer, 0, temp, 0, streamGeted);
+                                var messageGetted = Encoding.UTF8.GetString(temp);
 
-                                    //if (messageGetted.Contains("Percents:"))
-                                    //{
+                                //if (messageGetted.Contains("Percents:"))
+                                //{
 
-                                    //}
+                                //}
 
-                                    //string str = messageGetted;
-                                    //string[] strs = str.Split(new char[] { ':' });
-                                    //string perc = strs[1].ToString();
-                                    //UCServerCreateViewModel.TextLogs.Value += "\nПроценты загрузки" + perc;
+                                //string str = messageGetted;
+                                //string[] strs = str.Split(new char[] { ':' });
+                                //string perc = strs[1].ToString();
+                                //UCServerCreateViewModel.TextLogs.Value += "\nПроценты загрузки" + perc;
 
-                                    UCServerCreateViewModel.TextLogs.Value += "\n" + messageGetted;
-                                }
-
-                                Array.Clear(buffer, 0, buffer.Length);
-                                client.GetStream().BeginRead(buffer, 0, buffer.Length, Server_MessageRecieved, null);
+                                UCServerCreateViewModel.TextLogs.Value += "\n" + messageGetted;
                             }
-                            catch (Exception exp) { UCLogsViewModel.TextLogs.Value += "\n" + exp.Message; }
+
+                            Array.Clear(buffer, 0, buffer.Length);
+                            client.GetStream().BeginRead(buffer, 0, buffer.Length, Server_MessageRecieved, null);
                         }
+                        catch (Exception exp) { UCLogsViewModel.TextLogs.Value += "\n" + exp.Message; }
                     }
                 }
-                catch (Exception exp) { UCLogsViewModel.TextLogs.Value += "\n" + exp.Message; }
-            });
+            }
+            catch (Exception exp) { UCLogsViewModel.TextLogs.Value += "\n" + exp.Message; }
         }
 
         public static void SendMessage(string verCore, string fileName)
         {
             try
             {
-                var message = Encoding.ASCII.GetBytes(verCore + "^" + fileName);
+                var message = Encoding.UTF8.GetBytes(verCore + "^" + fileName);
                 client.GetStream().Write(message, 0, message.Length);
             }
             catch (Exception exp) { UCLogsViewModel.TextLogs.Value += "\n" + exp.Message; }
