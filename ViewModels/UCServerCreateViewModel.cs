@@ -44,7 +44,7 @@ namespace ServerCreation.ViewModels
         public static string SelectedVersion { get; set; }
         public ObservableCollection<string> ServerCores { get; set; } = new ObservableCollection<string>() 
         {
-            "Vanilla", "Bukkit", "Spigot (1.12.2)", "Paper", "Forge", "CatServer"
+            "Vanilla", "Bukkit", "Spigot", "Paper", "Forge", "CatServer"
         };
         public static string SelectedCore { get; set; }
         static public ReactiveProperty<string> TextLogs { get; set; } = new();
