@@ -134,11 +134,39 @@ namespace ServerCreation.Engine
                 case "1.16.5-Paper":
                     await FileDowloader.DowloadServer("https://papermc.io/api/v2/projects/paper/versions/1.16.5/builds/592/downloads/paper-1.16.5-592.jar", filename);
                     break;
+
+                case "1.15.2-Paper":
+                    await FileDowloader.DowloadServer("https://papermc.io/api/v2/projects/paper/versions/1.15.2/builds/391/downloads/paper-1.15.2-391.jar", filename);
+                    break;
+
+                case "1.14.4-Paper":
+                    await FileDowloader.DowloadServer("https://papermc.io/api/v2/projects/paper/versions/1.14.4/builds/243/downloads/paper-1.14.4-243.jar", filename);
+                    break;
+
+                case "1.13.2-Paper":
+                    await FileDowloader.DowloadServer("https://papermc.io/api/v2/projects/paper/versions/1.13.2/builds/655/downloads/paper-1.13.2-655.jar", filename);
+                    break;
+
+                case "1.12.2-Paper":
+                    await FileDowloader.DowloadServer("https://papermc.io/api/v2/projects/paper/versions/1.12.2/builds/1618/downloads/paper-1.12.2-1618.jar", filename);
+                    break;
+
+                case "1.11.2-Paper":
+                    await FileDowloader.DowloadServer("https://papermc.io/api/v2/projects/paper/versions/1.11.2/builds/1104/downloads/paper-1.11.2-1104.jar", filename);
+                    break;
+
+                case "1.10.2-Paper":
+                    await FileDowloader.DowloadServer("https://papermc.io/api/v2/projects/paper/versions/1.10.2/builds/916/downloads/paper-1.10.2-916.jar", filename);
+                    break;
+
+                case "1.9.4-Paper":
+                    await FileDowloader.DowloadServer("https://papermc.io/api/v2/projects/paper/versions/1.9.4/builds/773/downloads/paper-1.9.4-773.jar", filename);
+                    break;
+
+                case "1.8.8-Paper":
+                    await FileDowloader.DowloadServer("https://papermc.io/api/v2/projects/paper/versions/1.8.8/builds/443/downloads/paper-1.8.8-443.jar", filename);
+                    break;
                 #endregion
-                //case "":
-                //    break;
-                //case "":
-                //    break;
                 default:
                     UCLogsViewModel.TextLogs.Value += "\nВыбранного сочетания версия + ядро не существует";
                     break;
