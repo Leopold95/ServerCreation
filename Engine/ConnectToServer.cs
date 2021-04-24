@@ -40,15 +40,16 @@ namespace ServerCreation.Engine
                                     Array.Copy(buffer, 0, temp, 0, streamGeted);
                                     var messageGetted = Encoding.ASCII.GetString(temp);
 
-                                    if (messageGetted.Contains("Percents:"))
-                                    {
-                                        string str = messageGetted;
-                                        string[] strs = str.Split(new char[] { ':' });
-                                        string verCore = strs[0].ToString();
-                                        string fileName = strs[1].ToString();
-                                        UCServerCreateViewModel.TextLogs.Value += "\nПроценты загрузки" + fileName;
-                                    }
-                                    
+                                    //if (messageGetted.Contains("Percents:"))
+                                    //{
+
+                                    //}
+
+                                    //string str = messageGetted;
+                                    //string[] strs = str.Split(new char[] { ':' });
+                                    //string perc = strs[1].ToString();
+                                    //UCServerCreateViewModel.TextLogs.Value += "\nПроценты загрузки" + perc;
+
                                     UCServerCreateViewModel.TextLogs.Value += "\n" + messageGetted;
                                 }
 
@@ -63,17 +64,14 @@ namespace ServerCreation.Engine
             });
         }
 
-        public static async void SendMessage(string verCore, string fileName)
+        public static void SendMessage(string verCore, string fileName)
         {
-            await Task.Run(() => 
+            try
             {
-                try
-                {
-                    var message = Encoding.ASCII.GetBytes(verCore + "^" + fileName);
-                    client.GetStream().Write(message, 0, message.Length);
-                }
-                catch (Exception exp) { UCLogsViewModel.TextLogs.Value += "\n" + exp.Message; }
-            });
+                var message = Encoding.ASCII.GetBytes(verCore + "^" + fileName);
+                client.GetStream().Write(message, 0, message.Length);
+            }
+            catch (Exception exp) { UCLogsViewModel.TextLogs.Value += "\n" + exp.Message; }
         }
     }
 }

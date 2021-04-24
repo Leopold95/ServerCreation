@@ -21,7 +21,7 @@ namespace ServerCreation.Commands
 
             UCServerCreateViewModel.FileLocation.Value = string.Join("", await openFolderDialog.ShowAsync(mv));
         }
-        public static void DowloadCommand(string selectedVer, string selectedCore, string fileLoc, string filename)
+        public static async Task DowloadCommand(string selectedVer, string selectedCore, string fileLoc, string filename)
         {
             if(settings.IsServer == false)
             {
@@ -41,8 +41,6 @@ namespace ServerCreation.Commands
                 {
                     if (filename != "" & filename != null)
                     {
-                        ConnectToServer.Connect();
-                        Task.Delay(500);
                         ConnectToServer.SendMessage(selectedVer + "-" + selectedCore, filename + ".jar");
                     }
                     else
@@ -50,7 +48,11 @@ namespace ServerCreation.Commands
                 }
                 else
                     UCLogsViewModel.TextLogs.Value += "\nВыберите версию и ядро";
-            }              
+            }
+        }
+        public static async void ConnectCommand()
+        {
+            ConnectToServer.Connect();
         }
 
         //UCOptionsVM Commands

@@ -43,7 +43,8 @@
 
 			<ProgressBar Grid.ColumnSpan="2" Grid.Row="4" Value="{Binding DowloadPersents.Value}" Maximum="100" Height="20"/>
 
-			<Button Grid.Column="2" Grid.Row="5" Content="Скачать" Command="{Binding DowloadCommand}" HorizontalAlignment="Right"/>
+			<Button Grid.Column="2" Grid.Row="5" Content="Подключится к серверу" Command="{Binding ConnectCommand}" HorizontalAlignment="Right"/>
+			<Button Grid.Column="2" Grid.Row="5" Content="Скачать" Command="{Binding DowloadCommand}" HorizontalAlignment="Left"/>
 			
 			<TextBox Grid.Row="6" Grid.ColumnSpan="3" Text="{Binding TextLogs.Value, Mode=OneWay}" IsVisible="{Binding IsTextLogsVisibly.Value}" IsReadOnly="True" Margin="5"/>
 		</Grid>
