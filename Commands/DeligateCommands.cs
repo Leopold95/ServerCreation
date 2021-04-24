@@ -21,7 +21,7 @@ namespace ServerCreation.Commands
 
             UCServerCreateViewModel.FileLocation.Value = string.Join("", await openFolderDialog.ShowAsync(mv));
         }
-        public static async Task DowloadCommand(string selectedVer, string selectedCore, string fileLoc, string filename)
+        public static void DowloadCommand(string selectedVer, string selectedCore, string fileLoc, string filename)
         {
             if(settings.IsServer == false)
             {
@@ -40,9 +40,7 @@ namespace ServerCreation.Commands
                 if (selectedCore != null && selectedVer != null)
                 {
                     if (filename != "" & filename != null)
-                    {
                         ConnectToServer.SendMessage(selectedVer + "-" + selectedCore, filename + ".jar");
-                    }
                     else
                         UCLogsViewModel.TextLogs.Value += "\nРасположения или имя файла недопустимы!";
                 }
