@@ -1,6 +1,4 @@
-﻿using Avalonia;
-using Avalonia.Threading;
-using ServerCreation.ViewModels;
+﻿using ServerCreation.ViewModels;
 using System;
 using System.Net;
 using System.Threading.Tasks;

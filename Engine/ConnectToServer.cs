@@ -22,7 +22,7 @@ namespace ServerCreation.Engine
             try
             {
                 client = new TcpClient();
-                await client.ConnectAsync(IPAddress.Parse(settings.ServerIp), settings.ServerPort);
+                client.Connect(IPAddress.Parse(settings.ServerIp), settings.ServerPort);
                 client.GetStream().BeginRead(buffer, 0, buffer.Length, Server_MessageRecieved, null);
 
                 void Server_MessageRecieved(IAsyncResult ir)
