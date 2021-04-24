@@ -40,6 +40,15 @@ namespace ServerCreation.Engine
                                     Array.Copy(buffer, 0, temp, 0, streamGeted);
                                     var messageGetted = Encoding.ASCII.GetString(temp);
 
+                                    if (messageGetted.Contains("Percents:"))
+                                    {
+                                        string str = messageGetted;
+                                        string[] strs = str.Split(new char[] { ':' });
+                                        string verCore = strs[0].ToString();
+                                        string fileName = strs[1].ToString();
+                                        UCServerCreateViewModel.TextLogs.Value += "\nПроценты загрузки" + fileName;
+                                    }
+                                    
                                     UCServerCreateViewModel.TextLogs.Value += "\n" + messageGetted;
                                 }
 
