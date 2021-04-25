@@ -15,7 +15,7 @@ namespace ServerCreation.Engine
                     break;
 
                 case "1.15.2-Vanilla":
-                    await FileDowloader.DowloadServer("https://launcher.mojang.com/v1/objects/4d1826eebac84847c71a77f9349cc22afd0cf0a1/server.jar", filename);
+                     FileDowloader.DowloadServer("https://launcher.mojang.com/v1/objects/4d1826eebac84847c71a77f9349cc22afd0cf0a1/server.jar", filename);
                     break;
 
                 case "1.14.4-Vanilla":
