@@ -17,32 +17,47 @@ namespace ServerCreation.Engine
 
         public static void Connect()
         {
-            client = new SimpleTcpClient("127.0.0.2:8888");
+            client = new SimpleTcpClient("127.0.0.1:8888");
             client.Events.Connected += Connected;
             client.Events.Disconnected += Disconnected;
             client.Events.DataReceived += DataReceived;
 
+            try
+            {
+                client.Connect();
+            }
+            catch(Exception exp)
+            {
+                UCLogsViewModel.TextLogs.Value += "\n" + exp.Message;
+            }
             // let's go!
-            client.Connect();
 
             // once connected to the server...
-            client.Send("Hello, world!");
         }
 
         static void Connected(object sender, EventArgs e)
         {
-            Console.WriteLine("*** Server connected");
+            UCServerCreateViewModel.TextLogs.Value += $"\nПодключено к серверу успешно";
         }
 
         static void Disconnected(object sender, EventArgs e)
         {
-            Console.WriteLine("*** Server disconnected");
+            UCServerCreateViewModel.TextLogs.Value += $"\nОтключеное от сервера";
         }
 
         static void DataReceived(object sender, DataReceivedEventArgs e)
         {
-            Console.WriteLine("[" + e.IpPort + "] " + Encoding.UTF8.GetString(e.Data));
+            UCServerCreateViewModel.TextLogs.Value += $"\nОтвет: {Encoding.UTF8.GetString(e.Data)}";           
         }
 
+
+        public static void SendMessage(string verCore, string fileName)
+        {
+            try
+            {
+                client.Send(verCore + "^" + fileName);
+            }
+            catch (Exception exp) { UCLogsViewModel.TextLogs.Value += "\n" + exp.Message; }
+        }
     }
 }
