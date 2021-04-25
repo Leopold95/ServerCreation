@@ -17,22 +17,19 @@ namespace ServerCreation.Engine
 
         public static void Connect()
         {
-            client = new SimpleTcpClient("127.0.0.1:8888");
-            client.Events.Connected += Connected;
-            client.Events.Disconnected += Disconnected;
-            client.Events.DataReceived += DataReceived;
-
             try
             {
+                client = new SimpleTcpClient("127.0.0.1:8888");
+                client.Events.Connected += Connected;
+                client.Events.Disconnected += Disconnected;
+                client.Events.DataReceived += DataReceived;
+
                 client.Connect();
             }
             catch(Exception exp)
             {
                 UCLogsViewModel.TextLogs.Value += "\n" + exp.Message;
             }
-            // let's go!
-
-            // once connected to the server...
         }
 
         static void Connected(object sender, EventArgs e)
