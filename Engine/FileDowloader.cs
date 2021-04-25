@@ -1,6 +1,9 @@
-﻿using ServerCreation.ViewModels;
+﻿using Downloader;
+using ServerCreation.ViewModels;
 using System;
+using System.ComponentModel;
 using System.Net;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace ServerCreation.Engine
@@ -9,26 +12,52 @@ namespace ServerCreation.Engine
     {
         public static async Task DowloadServer(string url, string fileName)
         {
-            try
+            var downloadOpt = new DownloadConfiguration()
             {
-                UCLogsViewModel.TextLogs.Value += $"\nЗагрузка начата";
-                using (WebClient client = new WebClient())
-                {
-                    client.DownloadFileCompleted += (sender, e) => OnDowloadComplited();
+                BufferBlockSize = 10240, // usually, hosts support max to 8000 bytes, default values is 8000
+                ChunkCount = 8, // file parts to download, default value is 1
+                MaximumBytesPerSecond = 1024 * 1024, // download speed limited to 1MB/s, default values is zero or unlimited
+                MaxTryAgainOnFailover = int.MaxValue, // the maximum number of times to fail
+                OnTheFlyDownload = false, // caching in-memory or not? default values is true
+                ParallelDownload = true, // download parts of file as parallel or not. Default value is false
+                TempDirectory = "C:\\temp", // Set the temp path for buffering chunk files, the default path is Path.GetTempPath()
+                Timeout = 1000, // timeout (millisecond) per stream block reader, default values is 1000
+                RequestConfiguration = // config and customize request headers
+    {
+        Accept = "*/*",
+        AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate,
+        CookieContainer =  new CookieContainer(), // Add your cookies
+        Headers = new WebHeaderCollection(), // Add your custom headers
+        KeepAlive = false,
+        ProtocolVersion = HttpVersion.Version11, // Default value is HTTP 1.1
+        UseDefaultCredentials = false,
+        UserAgent = $"DownloaderSample/{Assembly.GetExecutingAssembly().GetName().Version.ToString(3)}"
+    }
+            };
 
-                    client.DownloadProgressChanged += (sender, e) => UCServerCreateViewModel.DowloadPersents.Value = e.ProgressPercentage;
+            var downloader = new DownloadService(downloadOpt);
 
-                    client.DownloadFileAsync(new Uri(url), UCServerCreateViewModel.TextLogs.Value + fileName);
-                }
+            downloader.DownloadStarted += OnDowloadStarted;
+            downloader.DownloadFileCompleted += OnDownloadFileCompleted;
+            downloader.DownloadProgressChanged += OnDowloadProgresChanged;
+
+            await downloader.DownloadFileTaskAsync(url, fileName);
+
+            void OnDowloadStarted(object sender, DownloadStartedEventArgs e)
+            {
+                UCLogsViewModel.TextLogs.Value += "\nDowload started";
             }
-            catch (Exception exp) { UCLogsViewModel.TextLogs.Value += $"\n{exp.Message}"; }
 
-            void OnDowloadComplited() 
+            void OnDownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
             {
-                UCLogsViewModel.TextLogs.Value += $"\nЗагрузка завершена";
+                UCLogsViewModel.TextLogs.Value += "\nDowload comlited";
                 UCServerCreateViewModel.DowloadPersents.Value = 0;
             }
 
+            void OnDowloadProgresChanged(object sender, Downloader.DownloadProgressChangedEventArgs e)
+            {
+                UCServerCreateViewModel.DowloadPersents.Value = Convert.ToInt32(e.ProgressPercentage);
+            }
         }
     }
 }
