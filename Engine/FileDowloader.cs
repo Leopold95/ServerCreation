@@ -7,13 +7,28 @@ using System.Net;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace ServerCreation.Engine
 {
     public class FileDowloader
     {
         public static Downloader.DownloadProgressChangedEventArgs dpcea;
-        public static async Task DowloadServer(string url, string fileName)
+        public static void Dowload(string url, string fileName)
+        { 
+            
+            Thread t = new Thread(new ThreadStart(() =>
+            {
+                DowloadServer(url, fileName);
+            }));
+            t.Start();
+        }
+        
+
+        
+        
+        
+        public static async void DowloadServer(string url, string fileName)
         {
             var downloadOpt = new DownloadConfiguration()
             {
@@ -45,6 +60,7 @@ namespace ServerCreation.Engine
             downloader.DownloadProgressChanged += OnDowloadProgresChanged;
 
             await downloader.DownloadFileTaskAsync(url, fileName);
+            
 
             void OnDowloadStarted(object sender, DownloadStartedEventArgs e)
             {
@@ -86,5 +102,7 @@ namespace ServerCreation.Engine
                 result = result.Replace("/", ".");
                 return result;
             }
+
+        
     }
 }
