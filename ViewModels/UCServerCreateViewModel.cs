@@ -55,6 +55,8 @@ namespace ServerCreation.ViewModels
         public static ReactiveProperty<int> DowloadPersents { get; set; } = new();
         public ReactiveProperty<bool> IsFileLocEnabled { get; set; } = new();
         public ReactiveProperty<bool> IsFileLocBtnEnebled { get; set; } = new();
+        public static ReactiveProperty<string> ProgressPersentage { get; set; } = new();
+        public static ReactiveProperty<string> DowloadInfo { get; set; } = new();
 
 
 

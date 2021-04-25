@@ -1,15 +1,18 @@
-﻿using Downloader;
+﻿using Avalonia.Threading;
+using Downloader;
 using ServerCreation.ViewModels;
 using System;
 using System.ComponentModel;
 using System.Net;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ServerCreation.Engine
 {
     public static class FileDowloader
     {
+        public static Downloader.DownloadProgressChangedEventArgs dpcea;
         public static async Task DowloadServer(string url, string fileName)
         {
             var downloadOpt = new DownloadConfiguration()
@@ -52,13 +55,36 @@ namespace ServerCreation.Engine
             {
                 UCLogsViewModel.TextLogs.Value += "\nDowload comlited";
                 UCServerCreateViewModel.DowloadPersents.Value = 0;
+                UCServerCreateViewModel.ProgressPersentage.Value = "";
             }
 
             void OnDowloadProgresChanged(object sender, Downloader.DownloadProgressChangedEventArgs e)
             {
                 UCServerCreateViewModel.DowloadPersents.Value = Convert.ToInt32(e.ProgressPercentage);
-                
+                UCServerCreateViewModel.ProgressPersentage.Value = Convert.ToUInt32(e.ProgressPercentage) + "%";
+                dpcea = e;
+                //ChageInfo(e);
             }
+
+
+
         }
+        static string CalcMemoryMensurableUnit(double bytes)
+            {
+                double kb = bytes / 1024; // · 1024 Bytes = 1 Kilobyte 
+                double mb = kb / 1024; // · 1024 Kilobytes = 1 Megabyte 
+                double gb = mb / 1024; // · 1024 Megabytes = 1 Gigabyte 
+                double tb = gb / 1024; // · 1024 Gigabytes = 1 Terabyte 
+
+                string result =
+                    tb > 1 ? $"{tb:0.##}TB" :
+                    gb > 1 ? $"{gb:0.##}GB" :
+                    mb > 1 ? $"{mb:0.##}MB" :
+                    kb > 1 ? $"{kb:0.##}KB" :
+                    $"{bytes:0.##}B";
+
+                result = result.Replace("/", ".");
+                return result;
+            }
     }
 }
