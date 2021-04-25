@@ -8,16 +8,17 @@
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.10.0" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.10.0" />
-    <PackageReference Include="Avalonia.Diagnostics" Version="0.10.0" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.0" />
-    <PackageReference Include="Avalonia.Xaml.Behaviors" Version="0.10.0" />
-    <PackageReference Include="Avalonia.Xaml.Interactions" Version="0.10.0" />
-    <PackageReference Include="Avalonia.Xaml.Interactivity" Version="0.10.0" />
+    <PackageReference Include="Avalonia" Version="0.10.2" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.2" />
+    <PackageReference Include="Avalonia.Diagnostics" Version="0.10.2" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.2" />
+    <PackageReference Include="Avalonia.Xaml.Behaviors" Version="0.10.2" />
+    <PackageReference Include="Avalonia.Xaml.Interactions" Version="0.10.2" />
+    <PackageReference Include="Avalonia.Xaml.Interactivity" Version="0.10.2" />
     <PackageReference Include="MessageBox.Avalonia" Version="1.1.1" />
-    <PackageReference Include="ReactiveProperty" Version="7.8.3" />
+    <PackageReference Include="ReactiveProperty" Version="7.9.0" />
     <PackageReference Include="ReactiveUI" Version="13.2.18" />
+    <PackageReference Include="SuperSimpleTcp" Version="2.4.0" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Views\UCSeverCreate.axaml.cs">

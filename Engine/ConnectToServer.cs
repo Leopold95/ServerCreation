@@ -1,4 +1,5 @@
 ﻿using ServerCreation.ViewModels;
+using SimpleTcp;
 using System;
 using System.IO;
 using System.Net;
@@ -12,63 +13,36 @@ namespace ServerCreation.Engine
 {
     public class ConnectToServer
     {
-        static TcpClient client;
-        static byte[] buffer = new byte[512];
+        static SimpleTcpClient client;
 
-        static AppSettings settings = AppSettings.GetSettings();
-       
-        public static async Task Connect()
+        public static void Connect()
         {
-            try
-            {
-                client = new TcpClient();
-                client.ConnectAsync(IPAddress.Parse(settings.ServerIp), settings.ServerPort);
-                client.GetStream().BeginRead(buffer, 0, buffer.Length, Server_MessageRecieved, null);
+            client = new SimpleTcpClient("127.0.0.2:8888");
+            client.Events.Connected += Connected;
+            client.Events.Disconnected += Disconnected;
+            client.Events.DataReceived += DataReceived;
 
-                void Server_MessageRecieved(IAsyncResult ir)
-                {
-                    if (ir.IsCompleted)
-                    {
-                        try
-                        {
-                            var streamGeted = client.GetStream().EndRead(ir);
-                            if (streamGeted > 0)
-                            {
-                                var temp = new byte[streamGeted];
-                                Array.Copy(buffer, 0, temp, 0, streamGeted);
-                                var messageGetted = Encoding.UTF8.GetString(temp);
+            // let's go!
+            client.Connect();
 
-                                //if (messageGetted.Contains("Percents:"))
-                                //{
-
-                                //}
-
-                                //string str = messageGetted;
-                                //string[] strs = str.Split(new char[] { ':' });
-                                //string perc = strs[1].ToString();
-                                //UCServerCreateViewModel.TextLogs.Value += "\nПроценты загрузки" + perc;
-
-                                UCServerCreateViewModel.TextLogs.Value += "\n" + messageGetted;
-                            }
-
-                            Array.Clear(buffer, 0, buffer.Length);
-                            client.GetStream().BeginRead(buffer, 0, buffer.Length, Server_MessageRecieved, null);
-                        }
-                        catch (Exception exp) { UCLogsViewModel.TextLogs.Value += "\n" + exp.Message; }
-                    }
-                }
-            }
-            catch (Exception exp) { UCLogsViewModel.TextLogs.Value += "\n" + exp.Message; }
+            // once connected to the server...
+            client.Send("Hello, world!");
         }
 
-        public static void SendMessage(string verCore, string fileName)
+        static void Connected(object sender, EventArgs e)
         {
-            try
-            {
-                var message = Encoding.UTF8.GetBytes(verCore + "^" + fileName);
-                client.GetStream().Write(message, 0, message.Length);
-            }
-            catch (Exception exp) { UCLogsViewModel.TextLogs.Value += "\n" + exp.Message; }
+            Console.WriteLine("*** Server connected");
         }
+
+        static void Disconnected(object sender, EventArgs e)
+        {
+            Console.WriteLine("*** Server disconnected");
+        }
+
+        static void DataReceived(object sender, DataReceivedEventArgs e)
+        {
+            Console.WriteLine("[" + e.IpPort + "] " + Encoding.UTF8.GetString(e.Data));
+        }
+
     }
 }
