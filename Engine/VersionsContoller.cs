@@ -10,8 +10,8 @@ namespace ServerCreation.Engine
             switch (verion)
             {
                 #region Vanilla
-                case "1.16.5-Vanilla":
-                    await FileDowloader.DowloadServer("https://launcher.mojang.com/v1/objects/35139deedbd5182953cf1caa23835da59ca3d7cd/server.jar", filename);
+                case "1.16.5-Vanilla": 
+                    FileDowloader.DowloadServer("https://launcher.mojang.com/v1/objects/35139deedbd5182953cf1caa23835da59ca3d7cd/server.jar", filename);
                     break;
 
                 case "1.15.2-Vanilla":

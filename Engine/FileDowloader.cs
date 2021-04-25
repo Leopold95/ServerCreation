@@ -81,11 +81,8 @@ namespace ServerCreation.Engine
                 dpcea = e;
                 //ChageInfo(e);
             }
-
-
-
-        }
-        static string CalcMemoryMensurableUnit(double bytes)
+            
+            static string CalcMemoryMensurableUnit(double bytes)
             {
                 double kb = bytes / 1024; // · 1024 Bytes = 1 Kilobyte 
                 double mb = kb / 1024; // · 1024 Kilobytes = 1 Megabyte 
@@ -102,6 +99,9 @@ namespace ServerCreation.Engine
                 result = result.Replace("/", ".");
                 return result;
             }
+
+        }
+        
 
         
     }
