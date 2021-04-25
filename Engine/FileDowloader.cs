@@ -57,6 +57,7 @@ namespace ServerCreation.Engine
             void OnDowloadProgresChanged(object sender, Downloader.DownloadProgressChangedEventArgs e)
             {
                 UCServerCreateViewModel.DowloadPersents.Value = Convert.ToInt32(e.ProgressPercentage);
+                
             }
         }
     }
