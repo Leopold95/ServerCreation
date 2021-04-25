@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ServerCreation.Engine
 {
-    public static class FileDowloader
+    public class FileDowloader
     {
         public static Downloader.DownloadProgressChangedEventArgs dpcea;
         public static async Task DowloadServer(string url, string fileName)

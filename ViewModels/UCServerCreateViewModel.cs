@@ -8,7 +8,7 @@ using System.IO;
 
 namespace ServerCreation.ViewModels
 {
-    public class UCServerCreateViewModel : ViewModelBase
+    public class UCServerCreateViewModel
     {
         AppSettings settings = AppSettings.GetSettings();
 

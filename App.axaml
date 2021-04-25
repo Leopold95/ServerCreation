@@ -6,7 +6,7 @@
              x:Class="ServerCreation.App">
 	
     <Application.DataTemplates>
-        <local:ViewLocator/>
+
     </Application.DataTemplates>
 
     <Application.Styles>

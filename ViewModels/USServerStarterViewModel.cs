@@ -5,7 +5,7 @@ using System.Reactive;
 
 namespace ServerCreation.ViewModels
 {
-    public class USServerStarterViewModel : ViewModelBase
+    public class USServerStarterViewModel
     {
         public static ReactiveProperty<string> TextIn { get; set; } = new();
         public static ReactiveProperty<string> TextOut { get; set; } = new();

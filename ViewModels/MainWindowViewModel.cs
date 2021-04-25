@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace ServerCreation.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase
+    public class MainWindowViewModel
     {
         public MainWindowViewModel()
         {

@@ -6,7 +6,7 @@ using System.Reactive;
 
 namespace ServerCreation.ViewModels
 {
-    public class UCOptionsViewModel : ViewModelBase
+    public class UCOptionsViewModel
     {
         public UCOptionsViewModel()
         {
