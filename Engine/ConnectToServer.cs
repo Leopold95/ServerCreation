@@ -8,45 +8,49 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-
+using WatsonTcp;
 
 namespace ServerCreation.Engine
 {
     public class ConnectToServer
     {
-        static SimpleTcpClient client;
+        static WatsonTcpClient client;
         static AppSettings settings = AppSettings.GetSettings();
 
         public static void Connect()
         {
             try
             {
-                client = new SimpleTcpClient($"{settings.ServerIp}:{settings.ServerPort}");
-                client.Events.Connected += OnConnected;
-                client.Events.Disconnected += OnDisconnected;
-                client.Events.DataReceived += OnDataReceived;
-
+                client = new WatsonTcpClient("127.0.0.1", 8888);
+                client.Events.ServerConnected += ServerConnected;
+                client.Events.ServerDisconnected += ServerDisconnected;
+                client.Events.MessageReceived += MessageReceived;
                 client.Connect();
+
+
+
             }
             catch (Exception exp)
             {
                 UCLogsViewModel.TextLogs.Value += "\n" + exp.Message;
             }
 
-            static void OnConnected(object sender, EventArgs e)
+
+            static void MessageReceived(object sender, MessageReceivedEventArgs args)
             {
-                UCServerCreateViewModel.TextLogs.Value += $"\nПодключено к серверу успешно";
+                UCServerCreateViewModel.TextLogs.Value += "\nMessage from " + args.IpPort + ": " + Encoding.UTF8.GetString(args.Data);
             }
 
-            static void OnDisconnected(object sender, EventArgs e)
+            static void ServerConnected(object sender, EventArgs args)
             {
-                UCServerCreateViewModel.TextLogs.Value += $"\nОтключеное от сервера";
+                UCServerCreateViewModel.TextLogs.Value += "\nServer  connected";
             }
 
-            static void OnDataReceived(object sender, DataReceivedEventArgs e)
+            static void ServerDisconnected(object sender, EventArgs args)
             {
-                UCServerCreateViewModel.TextLogs.Value += $"\nОтвет: {Encoding.UTF8.GetString(e.Data)}";
+                UCServerCreateViewModel.TextLogs.Value += "\nServer disconnected";
             }
+
         }
 
         public static void Disconnect()
@@ -59,6 +63,7 @@ namespace ServerCreation.Engine
             try
             {
                 client.Send(verCore + "^" + fileName);
+
             }
             catch (Exception exp) { UCLogsViewModel.TextLogs.Value += "\n" + exp.Message; }
         }
