@@ -27,38 +27,49 @@
 	</UserControl.Styles>
 
 	
-	<Grid ColumnDefinitions="100, 150, *">
-		
-		<ListBox Grid.Column="0" Items="{Binding Versions}" SelectedItem="{Binding SelectedVersion}"/>
-		<ListBox Grid.Column="1" Items="{Binding ServerCores}" SelectedItem="{Binding SelectedCore}"/>
+	<Grid ColumnDefinitions="210, *">
 
-		<Grid ColumnDefinitions="210, 80, *" RowDefinitions="25, 30, 25, 30, 30, 40, *" Grid.Column="2" Background="AliceBlue">
+		<!-- List Boxes -->
+		<Grid ColumnDefinitions="100, 110" Grid.Column="0">
+			<ListBox Grid.Column="0" Items="{Binding Versions}" SelectedItem="{Binding SelectedVersion}"/>
+			<ListBox Grid.Column="1" Items="{Binding ServerCores}" SelectedItem="{Binding SelectedCore}"/>
+		</Grid>
 
-			<Border Grid.RowSpan="5" Grid.Column="2" Background="Aquamarine" CornerRadius="10" BorderBrush="Black">
-				<Grid RowDefinitions="25, 25, 25, *" >
-					<TextBlock Grid.Row="0" Text="{Binding UpdSpeedInfo.Value}"/>
-					<TextBlock Grid.Row="1" Text="{Binding UpdBytesRecivedInfo.Value}"/>
-					<TextBlock Grid.Row="2" Text="{Binding UpdTotalBytesRecivedInfo.Value}"/>
+		<!-- Main Grid -->
+		<Grid RowDefinitions="205, *" Grid.Column="1" Background="AliceBlue">
+
+			<!-- Main grid for control panel -->
+			<Grid ColumnDefinitions="320, *" RowDefinitions="180 , *" Grid.Row="0">
+
+				<!-- Control panel grid -->
+				<Grid RowDefinitions="25, 30, 25, 30, 30, 40, *" ColumnDefinitions="210, 80, *"  Grid.Column="0" Background="AntiqueWhite">
+					<TextBlock Text="Укажите путь загрузки" />
+
+					<TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding FileLocation.Value}" IsEnabled="{Binding IsFileLocEnabled.Value}" IsReadOnly="True"/>
+					<Button Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Content="..." Command="{Binding ChangeDowloadFolder}" IsEnabled="{Binding IsFileLocBtnEnebled.Value}"/>
+
+					<TextBlock Text="Введите имя сервера" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+					<TextBox Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding FileName.Value}" Watermark="Введите имя сервера"/>
+
+					<ProgressBar Grid.ColumnSpan="2" Grid.Row="4"  Value="{Binding DowloadPersents.Value}" Maximum="100" Height="20"/>
+					<Label  Grid.ColumnSpan="2" Grid.Row="4" Content="{Binding ProgressPersentage.Value}" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
 				</Grid>
-			</Border>
-			
 
-			
-			<TextBlock Text="Укажите путь загрузки" />
+				<!-- Dowload info upadate grid -->
+				<Grid Grid.Column="1" Background="Aqua">					
+				</Grid>
 
-			<TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding FileLocation.Value}" IsEnabled="{Binding IsFileLocEnabled.Value}" IsReadOnly="True"/>
-			<Button Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Content="..." Command="{Binding ChangeDowloadFolder}" IsEnabled="{Binding IsFileLocBtnEnebled.Value}"/>
-			
-			<TextBlock Text="Введите имя сервера" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-			<TextBox Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding FileName.Value}" Watermark="Введите имя сервера"/>
+				<!-- Remoute buttons grid -->
+				<Grid Grid.ColumnSpan="2" Grid.Row="1">
+					<Button Content="Подключиться к серверу" Command="{Binding ConnectCommand}" HorizontalAlignment="Right"/>
+					<Button Content="Скачать" Command="{Binding DowloadCommand}" HorizontalAlignment="Center"  Width="150"/>
+					<Button Content="Отключиться от сервера" HorizontalAlignment="Left"/>
+				</Grid>
+				
+			</Grid>
 
-			<ProgressBar Grid.ColumnSpan="2" Grid.Row="4"  Value="{Binding DowloadPersents.Value}" Maximum="100" Height="20"/>
-			<Label  Grid.ColumnSpan="2" Grid.Row="4" Content="{Binding ProgressPersentage.Value}" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+			<TextBox Grid.Row="1" Text="{Binding TextLogs.Value, Mode=OneWay}" IsVisible="{Binding IsTextLogsVisibly.Value}" IsReadOnly="True" Margin="5"/>
 			
-			<Button Grid.Column="2" Grid.Row="5" Content="Подключится к серверу" Command="{Binding ConnectCommand}" HorizontalAlignment="Right"/>
-			<Button Grid.Column="2" Grid.Row="5" Content="Скачать" Command="{Binding DowloadCommand}" HorizontalAlignment="Left"/>
-			
-			<TextBox Grid.Row="6" Grid.ColumnSpan="3" Text="{Binding TextLogs.Value, Mode=OneWay}" IsVisible="{Binding IsTextLogsVisibly.Value}" IsReadOnly="True" Margin="5"/>
-		</Grid>			
+		</Grid>		
 	</Grid>
 </UserControl>
