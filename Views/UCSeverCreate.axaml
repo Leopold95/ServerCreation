@@ -39,10 +39,10 @@
 		<Grid RowDefinitions="205, *" Grid.Column="1" Background="AliceBlue">
 
 			<!-- Main grid for control panel -->
-			<Grid ColumnDefinitions="320, *" RowDefinitions="180 , *" Grid.Row="0">
+			<Grid ColumnDefinitions="320, *" RowDefinitions="140, 40, *" Grid.Row="0"  Margin="5, 0, 5, 0">
 
 				<!-- Control panel grid -->
-				<Grid RowDefinitions="25, 30, 25, 30, 30, 40, *" ColumnDefinitions="210, 80, *"  Grid.Column="0" Background="AntiqueWhite">
+				<Grid RowDefinitions="25, 30, 25, 30, 30, 40, *" ColumnDefinitions="210, 80, *"  Grid.Column="0" Grid.Row="0">
 					<TextBlock Text="Укажите путь загрузки" />
 
 					<TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding FileLocation.Value}" IsEnabled="{Binding IsFileLocEnabled.Value}" IsReadOnly="True"/>
@@ -56,14 +56,19 @@
 				</Grid>
 
 				<!-- Dowload info upadate grid -->
-				<Grid Grid.Column="1" Background="Aqua">					
-				</Grid>
+				<Border Grid.Column="1" Grid.Row="0" Background="WhiteSmoke" CornerRadius="7" BorderBrush="Black" BorderThickness="1" Margin="5, 5, 5, 5">
+					<Grid RowDefinitions="30, 30, 30, *">
+						<TextBlock Grid.Row="0" Text="{Binding UpdSpeedInfo.Value}"/>
+						<TextBlock Grid.Row="1" Text="{Binding UpdBytesRecivedInfo.Value}"/>
+						<TextBlock Grid.Row="2" Text="{Binding UpdTotalBytesRecivedInfo.Value}"/>
+					</Grid>
+				</Border>
 
 				<!-- Remoute buttons grid -->
 				<Grid Grid.ColumnSpan="2" Grid.Row="1">
-					<Button Content="Подключиться к серверу" Command="{Binding ConnectCommand}" HorizontalAlignment="Right"/>
+					<Button Content="Подключиться к серверу" Command="{Binding ConnectCommand}" IsEnabled="{Binding BtnConnectToServerVisible.Value}" HorizontalAlignment="Right"/>
 					<Button Content="Скачать" Command="{Binding DowloadCommand}" HorizontalAlignment="Center"  Width="150"/>
-					<Button Content="Отключиться от сервера" HorizontalAlignment="Left"/>
+					<Button Content="Отключиться от сервера" Command="{Binding DisconnectCommand}" IsEnabled="{Binding BtnDisconnectFromVisible.Value}" HorizontalAlignment="Left"/>
 				</Grid>
 				
 			</Grid>

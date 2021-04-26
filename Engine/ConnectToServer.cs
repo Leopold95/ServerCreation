@@ -15,12 +15,13 @@ namespace ServerCreation.Engine
     public class ConnectToServer
     {
         static SimpleTcpClient client;
+        static AppSettings settings = AppSettings.GetSettings();
 
         public static void Connect()
         {
             try
             {
-                client = new SimpleTcpClient("127.0.0.1:8888");
+                client = new SimpleTcpClient($"{settings.ServerIp}:{settings.ServerPort}");
                 client.Events.Connected += OnConnected;
                 client.Events.Disconnected += OnDisconnected;
                 client.Events.DataReceived += OnDataReceived;
@@ -46,6 +47,11 @@ namespace ServerCreation.Engine
             {
                 UCServerCreateViewModel.TextLogs.Value += $"\nОтвет: {Encoding.UTF8.GetString(e.Data)}";
             }
+        }
+
+        public static void Disconnect()
+        {
+            client.Disconnect();
         }
 
         public static void SendMessage(string verCore, string fileName)

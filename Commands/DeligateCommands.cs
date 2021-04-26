@@ -48,9 +48,13 @@ namespace ServerCreation.Commands
                     UCLogsViewModel.TextLogs.Value += "\nВыберите версию и ядро";
             }
         }
-        public static async void ConnectCommand()
+        public static void ConnectCommand()
         {
             ConnectToServer.Connect();
+        }
+        public static void Disconnect()
+        {
+            ConnectToServer.Disconnect();
         }
 
         //UCOptionsVM Commands
