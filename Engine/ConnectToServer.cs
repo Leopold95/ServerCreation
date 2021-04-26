@@ -1,4 +1,5 @@
-﻿using ServerCreation.ViewModels;
+﻿using Avalonia.Threading;
+using ServerCreation.ViewModels;
 using SimpleTcp;
 using System;
 using System.IO;
@@ -15,36 +16,39 @@ namespace ServerCreation.Engine
     {
         static SimpleTcpClient client;
 
-        public static void Connect()
+        public static Thread t = new Thread(new ThreadStart(Connect)) { IsBackground = true, Name = "Is Server Connected", Priority = ThreadPriority.Normal };
+        
+
+        static void Connect()
         {
             try
             {
                 client = new SimpleTcpClient("127.0.0.1:8888");
-                client.Events.Connected += Connected;
-                client.Events.Disconnected += Disconnected;
-                client.Events.DataReceived += DataReceived;
+                client.Events.Connected += OnConnected;
+                client.Events.Disconnected += OnDisconnected;
+                client.Events.DataReceived += OnDataReceived;
 
                 client.Connect();
             }
-            catch(Exception exp)
+            catch (Exception exp)
             {
                 UCLogsViewModel.TextLogs.Value += "\n" + exp.Message;
             }
-        }
 
-        static void Connected(object sender, EventArgs e)
-        {
-            UCServerCreateViewModel.TextLogs.Value += $"\nПодключено к серверу успешно";
-        }
+            static async void OnConnected(object sender, EventArgs e)
+            {
+                await Dispatcher.UIThread.InvokeAsync(new Action(() => { UCServerCreateViewModel.TextLogs.Value += $"\nПодключено к серверу успешно"; }));
+            }
 
-        static void Disconnected(object sender, EventArgs e)
-        {
-            UCServerCreateViewModel.TextLogs.Value += $"\nОтключеное от сервера";
-        }
+            static async void OnDisconnected(object sender, EventArgs e)
+            {
+                await Dispatcher.UIThread.InvokeAsync(new Action(() => { UCServerCreateViewModel.TextLogs.Value += $"\nОтключеное от сервера"; }));
+            }
 
-        static void DataReceived(object sender, DataReceivedEventArgs e)
-        {
-            UCServerCreateViewModel.TextLogs.Value += $"\nОтвет: {Encoding.UTF8.GetString(e.Data)}";           
+            static async void OnDataReceived(object sender, DataReceivedEventArgs e)
+            {
+                await Dispatcher.UIThread.InvokeAsync(new Action(() => { UCServerCreateViewModel.TextLogs.Value += $"\nОтвет: {Encoding.UTF8.GetString(e.Data)}"; }));
+            }
         }
 
 
