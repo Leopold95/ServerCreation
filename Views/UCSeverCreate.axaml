@@ -32,7 +32,14 @@
 		<ListBox Grid.Column="0" Items="{Binding Versions}" SelectedItem="{Binding SelectedVersion}"/>
 		<ListBox Grid.Column="1" Items="{Binding ServerCores}" SelectedItem="{Binding SelectedCore}"/>
 
-		<Grid ColumnDefinitions="210, 80, *" RowDefinitions="25, 30, 25, 30, 30, 60, *" Grid.Column="2" Background="AliceBlue">			
+		<Grid ColumnDefinitions="210, 80, *" RowDefinitions="25, 30, 25, 30, 30, 40, *" Grid.Column="2" Background="AliceBlue">
+
+			<Grid RowDefinitions="25, 25, 25, *" Grid.RowSpan="5" Grid.Column="2" Background="Aquamarine">
+				<TextBlock Grid.Row="0" Text="{Binding UpdSpeedInfo.Value}"/>
+				<TextBlock Grid.Row="1" Text="{Binding UpdBytesRecivedInfo.Value}"/>
+				<TextBlock Grid.Row="2" Text="{Binding UpdTotalBytesRecivedInfo.Value}"/>
+			</Grid>
+			
 			<TextBlock Text="Укажите путь загрузки" />
 
 			<TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding FileLocation.Value}" IsEnabled="{Binding IsFileLocEnabled.Value}" IsReadOnly="True"/>
@@ -43,8 +50,6 @@
 
 			<ProgressBar Grid.ColumnSpan="2" Grid.Row="4"  Value="{Binding DowloadPersents.Value}" Maximum="100" Height="20"/>
 			<Label  Grid.ColumnSpan="2" Grid.Row="4" Content="{Binding ProgressPersentage.Value}" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-			
-			<TextBlock  Text="{Binding DowloadInfo.Value}" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 			
 			<Button Grid.Column="2" Grid.Row="5" Content="Подключится к серверу" Command="{Binding ConnectCommand}" HorizontalAlignment="Right"/>
 			<Button Grid.Column="2" Grid.Row="5" Content="Скачать" Command="{Binding DowloadCommand}" HorizontalAlignment="Left"/>

@@ -50,12 +50,7 @@ namespace ServerCreation.Commands
         }
         public static async void ConnectCommand()
         {
-
-            if(ConnectToServer.t.IsAlive == false)
-            {
-                ConnectToServer.t.Start();
-            }
-           
+            ConnectToServer.Connect();
         }
 
         //UCOptionsVM Commands

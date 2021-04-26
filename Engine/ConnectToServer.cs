@@ -16,10 +16,7 @@ namespace ServerCreation.Engine
     {
         static SimpleTcpClient client;
 
-        public static Thread t = new Thread(new ThreadStart(Connect)) { IsBackground = true, Name = "Is Server Connected", Priority = ThreadPriority.Normal };
-        
-
-        static void Connect()
+        public static void Connect()
         {
             try
             {
@@ -35,22 +32,21 @@ namespace ServerCreation.Engine
                 UCLogsViewModel.TextLogs.Value += "\n" + exp.Message;
             }
 
-            static async void OnConnected(object sender, EventArgs e)
+            static void OnConnected(object sender, EventArgs e)
             {
-                await Dispatcher.UIThread.InvokeAsync(new Action(() => { UCServerCreateViewModel.TextLogs.Value += $"\nПодключено к серверу успешно"; }));
+                UCServerCreateViewModel.TextLogs.Value += $"\nПодключено к серверу успешно";
             }
 
-            static async void OnDisconnected(object sender, EventArgs e)
+            static void OnDisconnected(object sender, EventArgs e)
             {
-                await Dispatcher.UIThread.InvokeAsync(new Action(() => { UCServerCreateViewModel.TextLogs.Value += $"\nОтключеное от сервера"; }));
+                UCServerCreateViewModel.TextLogs.Value += $"\nОтключеное от сервера";
             }
 
-            static async void OnDataReceived(object sender, DataReceivedEventArgs e)
+            static void OnDataReceived(object sender, DataReceivedEventArgs e)
             {
-                await Dispatcher.UIThread.InvokeAsync(new Action(() => { UCServerCreateViewModel.TextLogs.Value += $"\nОтвет: {Encoding.UTF8.GetString(e.Data)}"; }));
+                UCServerCreateViewModel.TextLogs.Value += $"\nОтвет: {Encoding.UTF8.GetString(e.Data)}";
             }
         }
-
 
         public static void SendMessage(string verCore, string fileName)
         {

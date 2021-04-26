@@ -58,6 +58,10 @@ namespace ServerCreation.ViewModels
         public static ReactiveProperty<string> ProgressPersentage { get; set; } = new();
         public static ReactiveProperty<string> DowloadInfo { get; set; } = new();
 
+        public static ReactiveProperty<string> UpdSpeedInfo { get; set; } = new();
+        public static ReactiveProperty<string> UpdBytesRecivedInfo { get; set; } = new();
+        public static ReactiveProperty<string> UpdTotalBytesRecivedInfo { get; set; } = new();
+
 
 
         public ReactiveCommand<Unit, Unit> DowloadCommand { get; } = ReactiveUI.ReactiveCommand.Create(() => { DeligateCommands.DowloadCommand(SelectedVersion, SelectedCore, FileLocation.Value, FileName.Value); });
