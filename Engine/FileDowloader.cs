@@ -1,5 +1,4 @@
-﻿using Avalonia.Threading;
-using Downloader;
+﻿using Downloader;
 using ServerCreation.ViewModels;
 using System;
 using System.ComponentModel;
@@ -36,7 +35,7 @@ namespace ServerCreation.Engine
                 }
             };
 
-            var downloader = new DownloadService(downloadOpt);
+            DownloadService downloader = new DownloadService(downloadOpt);
 
             downloader.DownloadStarted += OnDowloadStarted;
             downloader.DownloadFileCompleted += OnDownloadFileCompleted;
@@ -51,16 +50,12 @@ namespace ServerCreation.Engine
             }
 
             void OnDownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
-            {
-                UCLogsViewModel.TextLogs.Value += "\nDowload comlited";
+            {                
                 DowloadInfoUpdater.OnStopUpdateInfo();
             }
 
             void OnDowloadProgresChanged(object sender, DownloadProgressChangedEventArgs e)
             {
-                UCServerCreateViewModel.DowloadPersents.Value = Convert.ToInt32(e.ProgressPercentage);
-                UCServerCreateViewModel.ProgressPersentage.Value = Convert.ToUInt32(e.ProgressPercentage) + "%";
-
                 DowloadInfoUpdater.OnNewUpdateInfo(e);
             }
         }       

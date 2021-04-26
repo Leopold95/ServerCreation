@@ -34,11 +34,15 @@
 
 		<Grid ColumnDefinitions="210, 80, *" RowDefinitions="25, 30, 25, 30, 30, 40, *" Grid.Column="2" Background="AliceBlue">
 
-			<Grid RowDefinitions="25, 25, 25, *" Grid.RowSpan="5" Grid.Column="2" Background="Aquamarine">
-				<TextBlock Grid.Row="0" Text="{Binding UpdSpeedInfo.Value}"/>
-				<TextBlock Grid.Row="1" Text="{Binding UpdBytesRecivedInfo.Value}"/>
-				<TextBlock Grid.Row="2" Text="{Binding UpdTotalBytesRecivedInfo.Value}"/>
-			</Grid>
+			<Border Grid.RowSpan="5" Grid.Column="2" Background="Aquamarine" CornerRadius="10" BorderBrush="Black">
+				<Grid RowDefinitions="25, 25, 25, *" >
+					<TextBlock Grid.Row="0" Text="{Binding UpdSpeedInfo.Value}"/>
+					<TextBlock Grid.Row="1" Text="{Binding UpdBytesRecivedInfo.Value}"/>
+					<TextBlock Grid.Row="2" Text="{Binding UpdTotalBytesRecivedInfo.Value}"/>
+				</Grid>
+			</Border>
+			
+
 			
 			<TextBlock Text="Укажите путь загрузки" />
 

@@ -12,6 +12,9 @@ namespace ServerCreation.Engine
     {
         public static void OnNewUpdateInfo(DownloadProgressChangedEventArgs e)
         {
+            UCServerCreateViewModel.DowloadPersents.Value = Convert.ToInt32(e.ProgressPercentage);
+            UCServerCreateViewModel.ProgressPersentage.Value = Convert.ToUInt32(e.ProgressPercentage) + "%";
+
             UCServerCreateViewModel.UpdSpeedInfo.Value = $"Скорость: {CalcMemoryMensurableUnit(e.BytesPerSecondSpeed)}/s";
             UCServerCreateViewModel.UpdBytesRecivedInfo.Value = $"Скачано: {CalcMemoryMensurableUnit(e.ReceivedBytesSize)}";
             UCServerCreateViewModel.UpdTotalBytesRecivedInfo.Value = $"Осталось: {CalcMemoryMensurableUnit(e.TotalBytesToReceive)}";
@@ -19,6 +22,7 @@ namespace ServerCreation.Engine
 
         public static void OnStopUpdateInfo()
         {
+            UCLogsViewModel.TextLogs.Value += "\nDowload comlited";
             UCServerCreateViewModel.DowloadPersents.Value = 0;
             UCServerCreateViewModel.ProgressPersentage.Value = "";
 
