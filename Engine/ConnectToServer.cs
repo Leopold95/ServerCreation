@@ -29,12 +29,7 @@ namespace ServerCreation.Engine
                 client.Events.MessageReceived += MessageReceived;
                 client.Connect();
             }
-            catch (Exception exp)
-            {
-                UCLogsViewModel.TextLogs.Value += "\n" + exp.Message;
-            }
-
-
+            catch (Exception exp) { UCLogsViewModel.TextLogs.Value += "\n" + exp.Message; }
 
             static void ServerConnected(object sender, EventArgs args)
             {
@@ -51,12 +46,13 @@ namespace ServerCreation.Engine
                     string[] jsonStrs = Encoding.UTF8.GetString(args.Data).Split('^');
                     DowloadInfoUpdater.OnNewDowloadInfoInServer(jsonStrs[1]);
                 }
-                else if (Encoding.UTF8.GetString(args.Data).Equals("Загрузка на сервере завершена"))                
-                    DowloadInfoUpdater.OnDowloadComplitedOnServer();              
-                else
+                else if (Encoding.UTF8.GetString(args.Data).Equals("Загрузка на сервере завершена"))
                 {
+                    DowloadInfoUpdater.OnDowloadComplitedOnServer();
                     UCServerCreateViewModel.TextLogs.Value += $"\n{Encoding.UTF8.GetString(args.Data)}";
-                }
+                }                     
+                else
+                    UCServerCreateViewModel.TextLogs.Value += $"\n{Encoding.UTF8.GetString(args.Data)}";
             }
         }
 
