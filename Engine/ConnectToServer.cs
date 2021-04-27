@@ -1,4 +1,5 @@
 ﻿using Avalonia.Threading;
+using Newtonsoft.Json;
 using ServerCreation.ViewModels;
 using SimpleTcp;
 using System;
@@ -45,42 +46,13 @@ namespace ServerCreation.Engine
             }        
             static void MessageReceived(object sender, MessageReceivedEventArgs args)
             {
-                string dowloadpercents;
-                string speed;
-                string toRecive;
-                string totalToRecive;
-
-                string str = Encoding.UTF8.GetString(args.Data);
-
-                if (str.Contains("DowloadPercents"))
+                if (Encoding.UTF8.GetString(args.Data).Contains("Json"))
                 {
-                    string[] strs = Encoding.UTF8.GetString(args.Data).Split('^');
-                    string str1 = strs[0];
-                    string str2 = strs[1];
-
-                    string[] strs1 = str1.Split('=');
-                    string[] strs2 = str2.Split('+');
-
-                    string[] dowloadPersentstrs = strs1[0].Split('$');
-                    string[] serverrDowlaodSpeedStrs = strs1[1].Split('&');
-
-                    string[] dowloadedStrs = strs2[0].Split('*');
-                    string[] totaltorecieve = strs2[1].Split('#');
-
-                    dowloadpercents = dowloadPersentstrs[1];
-                    speed = serverrDowlaodSpeedStrs[1];
-
-                    totalToRecive = totaltorecieve[1];
-                    toRecive = dowloadedStrs[1];
-
-                    UCServerCreateViewModel.DowloadPersents.Value = Convert.ToInt32(dowloadpercents);
-                    UCServerCreateViewModel.ProgressPersentage.Value = dowloadpercents;
-                    UCServerCreateViewModel.UpdSpeedInfo.Value = $"Скорость: {speed}/s";
-                    UCServerCreateViewModel.UpdBytesRecivedInfo.Value = $"Скачано: {toRecive}";
-                    UCServerCreateViewModel.UpdTotalBytesRecivedInfo.Value = $"Осталось: {totalToRecive}";
-
-                    //UCServerCreateViewModel.TextLogs.Value += $"\nPercents {dowloadpercents} - Speed {speed} - Dowloaded {totalToRecive}/{totalToRecive}";
+                    string[] jsonStrs = Encoding.UTF8.GetString(args.Data).Split('^');
+                    DowloadInfoUpdater.OnNewDowloadInfoInServer(jsonStrs[1]);
                 }
+                else if (Encoding.UTF8.GetString(args.Data).Equals("Загрузка на сервере завершена"))                
+                    DowloadInfoUpdater.OnDowloadComplitedOnServer();              
                 else
                 {
                     UCServerCreateViewModel.TextLogs.Value += $"\n{Encoding.UTF8.GetString(args.Data)}";
