@@ -10,17 +10,67 @@
 		<vm:USServerStarterViewModel/>
 	</Design.DataContext>
 
+	<UserControl.Styles>
+		<Style Selector="TabItem">
+			<Setter Property="Background" Value="BlueViolet"/>
+		</Style>
+
+		<Style Selector="TabItem:selected">
+			<Setter Property="Background" Value="AliceBlue"/>
+		</Style>
+
+		<Style Selector="Button">
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="BorderBrush" Value="White"/>
+		</Style>
+
+
+
+
+		<Style Selector="Button.ControlBtns">
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="Width" Value="200"/>
+		</Style>
+
+	</UserControl.Styles>
+
 
 	<Grid ColumnDefinitions="200, *" RowDefinitions="">
 
-		<!-- Control grig -->
-		<Grid Grid.Column="0" Background="AliceBlue">
-			
-			
+		<!-- Control grid -->
+		<Grid RowDefinitions="150, *" Grid.Column="0">
+
+			<!--Info status grid-->
+			<Grid RowDefinitions="25, 25, 25, 25, *" Grid.Row="0" Background="AliceBlue">
+				
+				<TextBlock Name="ServerName" Grid.Row="0" Text="Имя"/>
+				<TextBlock Name="ServerUsedMemory" Grid.Row="1" Text="Процессор"/>
+				<TextBlock Name="ServerProcessorLoad" Grid.Row="2" Text="Память"/>
+				<TextBlock Name="ServerUsedDisk" Grid.Row="3" Text="Диск"/>
+			</Grid>
+
+			<!--Control grid-->
+			<Grid RowDefinitions="30, 30, 30, 30, 30, *" ColumnDefinitions="100, *" Grid.Row="1" Background="WhiteSmoke">
+				
+				<Button Grid.Row="0" Grid.Column="0" Content="Start" Classes="ControlBtns"/>
+				<Button Grid.Row="1" Grid.Column="0" Content="ReStart" Classes="ControlBtns"/>
+				<Button Grid.Row="2" Content="Stop" Classes="ControlBtns"/>
+				<Button Grid.Row="3" Content="Determinate" Background="#A60000" Classes="ControlBtns">
+					<Button.Styles>
+						<Style Selector="Button:pointerover /template/ ContentPresenter">
+							<Setter Property="Background" Value="#C92F2F"/>
+						</Style>
+					</Button.Styles>
+				</Button>
+				<Button Grid.Row="4"/>
+			</Grid>
 		</Grid>
 
 		<!-- info grid -->
-		<Grid RowDefinitions="30, *" Grid.Column="1" Background="AntiqueWhite">
+		<Grid RowDefinitions="25, *" Grid.Column="1" Background="AntiqueWhite">
 
 			<!-- Tabs grid -->
 			<Grid Grid.Row="0" Background="AliceBlue" >
@@ -31,9 +81,6 @@
 								<TextBlock Text="Server 1"/>
 							</StackPanel>
 						</TabItem.Header>
-						<TabItem.Content>
-
-						</TabItem.Content>
 					</TabItem>
 					<TabItem>
 						<TabItem.Header>
@@ -41,9 +88,6 @@
 								<TextBlock Text="Server 2"/>
 							</StackPanel>
 						</TabItem.Header>
-						<TabItem.Content>
-
-						</TabItem.Content>
 					</TabItem>
 				</TabControl>
 			</Grid>
