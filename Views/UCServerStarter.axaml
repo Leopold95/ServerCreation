@@ -26,9 +26,6 @@
 			<Setter Property="BorderBrush" Value="White"/>
 		</Style>
 
-
-
-
 		<Style Selector="Button.ControlBtns">
 			<Setter Property="HorizontalContentAlignment" Value="Center"/>
 			<Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -58,10 +55,11 @@
 				<Button Grid.Row="0" Grid.Column="0" Content="Start" Classes="ControlBtns"/>
 				<Button Grid.Row="1" Grid.Column="0" Content="ReStart" Classes="ControlBtns"/>
 				<Button Grid.Row="2" Content="Stop" Classes="ControlBtns"/>
-				<Button Grid.Row="3" Content="Determinate" Background="#A60000" Classes="ControlBtns">
+				<Button Grid.Row="3" Content="Determinate" Background="#A60000" Foreground="White" Classes="ControlBtns">
 					<Button.Styles>
 						<Style Selector="Button:pointerover /template/ ContentPresenter">
 							<Setter Property="Background" Value="#C92F2F"/>
+							<Setter Property="Button.Foreground" Value="White"/>
 						</Style>
 					</Button.Styles>
 				</Button>
