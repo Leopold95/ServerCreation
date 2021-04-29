@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:vm="using:ServerCreation.ViewModels"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" Width="800" Height="410"
              x:Class="ServerCreation.Views.UCServerStarter">
 
 	<Design.DataContext>
@@ -29,7 +29,7 @@
 		<Style Selector="Button.ControlBtns">
 			<Setter Property="HorizontalContentAlignment" Value="Center"/>
 			<Setter Property="VerticalContentAlignment" Value="Center"/>
-			<Setter Property="Width" Value="200"/>
+			<Setter Property="Width" Value="185"/>
 		</Style>
 
 	</UserControl.Styles>
@@ -41,30 +41,31 @@
 		<Grid RowDefinitions="150, *" Grid.Column="0">
 
 			<!--Info status grid-->
-			<Grid RowDefinitions="25, 25, 25, 25, *" Grid.Row="0" Background="AliceBlue">
-				
-				<TextBlock Name="ServerName" Grid.Row="0" Text="Имя"/>
-				<TextBlock Name="ServerUsedMemory" Grid.Row="1" Text="Процессор"/>
-				<TextBlock Name="ServerProcessorLoad" Grid.Row="2" Text="Память"/>
-				<TextBlock Name="ServerUsedDisk" Grid.Row="3" Text="Диск"/>
-			</Grid>
+			<Border Background="AliceBlue" BorderBrush="Black" BorderThickness="1" CornerRadius="5" Margin="2, 2, 2, 2">
+				<Grid RowDefinitions="30, 25, 25, 25, 25, *" Grid.Row="0" Margin="5, 0">
+					<TextBlock Name="ServerName" Grid.Row="1" Text="Имя"/>
+					<TextBlock Name="ServerUsedMemory" Grid.Row="2" Text="Процессор"/>
+					<TextBlock Name="ServerProcessorLoad" Grid.Row="3" Text="Память"/>
+					<TextBlock Name="ServerUsedDisk" Grid.Row="4" Text="Диск"/>
+				</Grid>
+			</Border>
 
 			<!--Control grid-->
-			<Grid RowDefinitions="30, 30, 30, 30, 30, *" ColumnDefinitions="100, *" Grid.Row="1" Background="WhiteSmoke">
-				
-				<Button Grid.Row="0" Grid.Column="0" Content="Start" Classes="ControlBtns"/>
-				<Button Grid.Row="1" Grid.Column="0" Content="ReStart" Classes="ControlBtns"/>
-				<Button Grid.Row="2" Content="Stop" Classes="ControlBtns"/>
-				<Button Grid.Row="3" Content="Determinate" Background="#A60000" Foreground="White" Classes="ControlBtns">
-					<Button.Styles>
-						<Style Selector="Button:pointerover /template/ ContentPresenter">
-							<Setter Property="Background" Value="#C92F2F"/>
-							<Setter Property="Button.Foreground" Value="White"/>
-						</Style>
-					</Button.Styles>
-				</Button>
-				<Button Grid.Row="4"/>
-			</Grid>
+			<Border BorderBrush="Black" CornerRadius="5" BorderThickness="1" Grid.Row="1" Margin="2, 2, 2, 2">
+				<Grid RowDefinitions="30, 30, 30, 30, 30, *" Margin="5, 4, 5, 5"  Background="WhiteSmoke">
+					<Button Grid.Row="0" Content="Start" Classes="ControlBtns"/>
+					<Button Grid.Row="1" Content="Restart" Classes="ControlBtns"/>
+					<Button Grid.Row="2" Content="Stop" Classes="ControlBtns"/>
+					<Button Grid.Row="3" Content="Determinate" Background="#A60000" Foreground="White" Classes="ControlBtns">
+						<Button.Styles>
+							<Style Selector="Button:pointerover /template/ ContentPresenter">
+								<Setter Property="Background" Value="#C92F2F"/>
+								<Setter Property="Button.Foreground" Value="White"/>
+							</Style>
+						</Button.Styles>
+					</Button>
+				</Grid>
+			</Border>
 		</Grid>
 
 		<!-- info grid -->
