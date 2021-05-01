@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using ServerCreation.ViewModels;
 using SimpleTcp;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
@@ -40,7 +41,17 @@ namespace ServerCreation.Engine
                 UCServerCreateViewModel.TextLogs.Value += "\nServer disconnected";
             }        
             static void MessageReceived(object sender, MessageReceivedEventArgs args)
-            {
+            { 
+                if(args.Metadata != null)
+                {
+                    foreach (KeyValuePair<object, object> keyValue in args.Metadata)
+                    {
+                        UCServerCreateViewModel.TextLogs.Value += $"\n{keyValue.Key + " - " + keyValue.Value}";                       
+                    }
+                    args.Metadata.Clear();
+                }
+               
+
                 if (Encoding.UTF8.GetString(args.Data).Contains("Json"))
                 {
                     string[] jsonStrs = Encoding.UTF8.GetString(args.Data).Split('^');
@@ -52,7 +63,7 @@ namespace ServerCreation.Engine
                     UCServerCreateViewModel.TextLogs.Value += $"\n{Encoding.UTF8.GetString(args.Data)}";
                 }                     
                 else
-                    UCServerCreateViewModel.TextLogs.Value += $"\n{Encoding.UTF8.GetString(args.Data)}";
+                    UCServerCreateViewModel.TextLogs.Value += $"\n{Encoding.UTF8.GetString(args.Data)}";                
             }
         }
 
