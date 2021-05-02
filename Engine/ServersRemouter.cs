@@ -24,12 +24,8 @@ namespace ServerCreation.Engine
 
             try
             {
-                // command line for java.exe in order to start a jar file: java -jar jar_file
-                var arguments = String.Format(" -jar {0} nogui", jarFile);
-                // create a process instance
-                var process = new Process();
-                // and instruct it to start java with the given parameters
-                var processStartInfo = new ProcessStartInfo(javaExecutable, arguments);
+                Process process = new Process();
+                ProcessStartInfo processStartInfo = new ProcessStartInfo(javaExecutable, $"java -jar {jarFile} nogui");
 
                 process.StartInfo = processStartInfo;
                 process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
@@ -48,6 +44,7 @@ namespace ServerCreation.Engine
                 process.BeginOutputReadLine();
                 process.BeginErrorReadLine();
 
+                streamWr.AutoFlush = true;
                 streamWr = process.StandardInput;
 
                 PID = process.Id;

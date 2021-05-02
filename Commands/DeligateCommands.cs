@@ -76,7 +76,6 @@ namespace ServerCreation.Commands
                 USServerStarterViewModel.TextIn.Value += $"\n{USServerStarterViewModel.TextOut.Value}";
 
                 ServersRemouter.streamWr.WriteLine(USServerStarterViewModel.TextOut.Value);
-                ServersRemouter.streamWr.Flush();
             }
             catch (Exception exp)
             {
