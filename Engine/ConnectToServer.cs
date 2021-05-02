@@ -32,29 +32,27 @@ namespace ServerCreation.Engine
                 UCServerCreateViewModel.TextLogs.Value += "\nServer disconnected";
             }        
             static void MessageReceived(object sender, MessageReceivedEventArgs args)
-            { 
-                if(args.Metadata != null)
+            {
+                if (args.Metadata != null)
                 {
                     foreach (KeyValuePair<object, object> keyValue in args.Metadata)
                     {
-                        UCServerCreateViewModel.TextLogs.Value += $"\n{keyValue.Key + " - " + keyValue.Value}";                       
+                        if (keyValue.Key.Equals("JsonDowloadInfo"))
+                            DowloadInfoUpdater.OnNewDowloadInfoInServer(keyValue.Value.ToString());
                     }
                     args.Metadata.Clear();
                 }
-               
 
-                if (Encoding.UTF8.GetString(args.Data).Contains("Json"))
+                if (Encoding.UTF8.GetString(args.Data) != null & Encoding.UTF8.GetString(args.Data) != "" & Encoding.UTF8.GetString(args.Data) != string.Empty)
                 {
-                    string[] jsonStrs = Encoding.UTF8.GetString(args.Data).Split('^');
-                    DowloadInfoUpdater.OnNewDowloadInfoInServer(jsonStrs[1]);
-                }
-                else if (Encoding.UTF8.GetString(args.Data).Equals("Загрузка на сервере завершена"))
-                {
-                    DowloadInfoUpdater.OnDowloadComplitedOnServer();
-                    UCServerCreateViewModel.TextLogs.Value += $"\n{Encoding.UTF8.GetString(args.Data)}";
-                }                     
-                else
-                    UCServerCreateViewModel.TextLogs.Value += $"\n{Encoding.UTF8.GetString(args.Data)}";                
+                    if (Encoding.UTF8.GetString(args.Data).Contains("Загрузка на сервере завершена"))
+                    {
+                        DowloadInfoUpdater.OnDowloadComplitedOnServer();
+                        UCServerCreateViewModel.TextLogs.Value += $"\n{Encoding.UTF8.GetString(args.Data)}";
+                    }
+                    else
+                        UCServerCreateViewModel.TextLogs.Value += $"\n{Encoding.UTF8.GetString(args.Data)}";
+                }            
             }
         }
 
