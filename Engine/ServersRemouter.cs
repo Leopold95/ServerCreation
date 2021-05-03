@@ -25,7 +25,7 @@ namespace ServerCreation.Engine
             try
             {
                 Process process = new Process();
-                ProcessStartInfo processStartInfo = new ProcessStartInfo(javaExecutable, $"java -jar {jarFile} nogui");
+                ProcessStartInfo processStartInfo = new ProcessStartInfo(javaExecutable, $" -jar {jarFile} nogui");
 
                 process.StartInfo = processStartInfo;
                 process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;

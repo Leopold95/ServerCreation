@@ -11,7 +11,6 @@ namespace ServerCreation.Commands
     {
         //UCServerCreateVM Commands
         static AppSettings settings = AppSettings.GetSettings();
-
         public static async void ChangeDowloadFolder()
         {
             MainWindow mv = new MainWindow();
@@ -57,6 +56,7 @@ namespace ServerCreation.Commands
             ConnectToServer.Disconnect();
         }
 
+
         //UCOptionsVM Commands
         public static async void ChangeJavaLocationFolderCommand()
         {
@@ -67,6 +67,7 @@ namespace ServerCreation.Commands
 
             UCOptionsViewModel.JavaFolder.Value = string.Join("", await openFolderDialog.ShowAsync(mv));
         }
+
 
         //UCServerStarter 
         public static void SendCommandToServer()

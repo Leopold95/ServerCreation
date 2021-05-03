@@ -11,9 +11,6 @@ namespace ServerCreation.ViewModels
         public static ReactiveProperty<string> TextOut { get; set; } = new();
 
         public ReactiveCommand<Unit, Unit> Send { get; } = ReactiveUI.ReactiveCommand.Create(() => { DeligateCommands.SendCommandToServer(); });
-        public ReactiveCommand<Unit, Unit> TestCommand { get; } = ReactiveUI.ReactiveCommand.Create(() => { DeligateCommands.StartServer(); ; });
-
-        //Corrent server load info
-
+        public ReactiveCommand<Unit, Unit> TestCommand { get; } = ReactiveUI.ReactiveCommand.Create(() => { DeligateCommands.StartServer(); });
     }
 }
