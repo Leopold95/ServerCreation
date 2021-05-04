@@ -37,8 +37,7 @@ namespace ServerCreation.Engine
                 {
                     foreach (KeyValuePair<object, object> keyValue in args.Metadata)
                     {
-                        if (keyValue.Key.Equals("JsonDowloadInfo"))
-                            DowloadInfoUpdater.OnNewDowloadInfoInServer(keyValue.Value.ToString());
+                        ServerMetadataHandler.OnMetadataReceived(keyValue.Key, keyValue.Value);
                     }
                     args.Metadata.Clear();
                 }
