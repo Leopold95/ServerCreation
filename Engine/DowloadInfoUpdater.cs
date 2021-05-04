@@ -53,7 +53,7 @@ namespace ServerCreation.Engine
         //Is server using
         public static void OnNewDowloadInfoInServer(string json)
         {
-            JsonCreator jsonCreator = JsonConvert.DeserializeObject<JsonCreator>(json);
+            JsonDowloadModel jsonCreator = JsonConvert.DeserializeObject<JsonDowloadModel>(json);
 
             UCServerCreateViewModel.DowloadPersents.Value = Convert.ToInt32(jsonCreator.Progress);
             UCServerCreateViewModel.ProgressPersentage.Value = jsonCreator.Progress;

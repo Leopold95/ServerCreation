@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,12 @@ namespace ServerCreation.Engine.GameServer
 {
     public class ServerInfoCollection
     {
-        public static List<ServerCollectionModel> ServerCollection = new();
+        public static List<ServerCollectionModel> ServerCollection;
+
+        public static void SetServerInfoCollection(string newJson)
+        {
+            ServerCollection = JsonConvert.DeserializeObject<List<ServerCollectionModel>>(newJson);
+        }
     }
 
     public class ServerCollectionModel

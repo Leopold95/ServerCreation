@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace ServerCreation.Engine
 {
-    public class JsonCreator
+    public class JsonDowloadModel
     {
-
         public string Speed { get; set; }
         public string Progress { get; set; }
         public string Recieved { get; set; }
