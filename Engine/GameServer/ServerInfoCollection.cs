@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,17 @@ namespace ServerCreation.Engine.GameServer
 {
     public class ServerInfoCollection
     {
-        public static List<ServerCollectionModel> ServerCollection = new();
+        private static ObservableCollection<ServerCollectionModel> ServerCollection { get; set; }
+
+        public static void SetServerCollectionInfo(ObservableCollection<ServerCollectionModel> lst)
+        {
+            ServerCollection = lst;
+        }
+
+        public static ObservableCollection<ServerCollectionModel> GetServerCollectionInfo()
+        {
+            return ServerCollection;
+        }
     }
 
     public class ServerCollectionModel

@@ -37,7 +37,7 @@ namespace ServerCreation.Engine
                 {
                     foreach (KeyValuePair<object, object> keyValue in args.Metadata)
                     {
-                        ServerMetadataHandler.OnMetadataReceived(keyValue.Key, keyValue.Value);
+                        ServerMetadataHandler.OnMetadataReceived(keyValue.Key.ToString(), keyValue.Value.ToString());
                     }
                     args.Metadata.Clear();
                 }
