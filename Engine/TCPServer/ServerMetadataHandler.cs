@@ -27,20 +27,23 @@ namespace ServerCreation.Engine
                     break;
 
                 case "ServerOutputError":
+                    GameServerReceivedOutoutHandler.OnError(value);
+                    UCLogsViewModel.TextLogs.Value += $"\nServerOutputError - {value}";
                     break;
 
                 case "ServerOutputOutput":
+                    GameServerReceivedOutoutHandler.OnNewOutput(value);
+                    UCLogsViewModel.TextLogs.Value += $"\nServerOutputOutput - {value}";
                     break;
 
                 case "ServerOutputException":
+                    GameServerReceivedOutoutHandler.OnException(value);
+                    UCLogsViewModel.TextLogs.Value += $"\nServerOutputException - {value}";
                     break;
 
-                //case "":
-                //    break;
-
-                //case "":
-                //    break;
-
+                default:
+                    UCLogsViewModel.TextLogs.Value += $"\nMetadate is not registred";
+                    break;
             }
         }
     }

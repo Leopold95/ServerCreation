@@ -22,39 +22,7 @@ namespace ServerCreation.Engine
                 client.Connect();
             }
             catch (Exception exp) { UCLogsViewModel.TextLogs.Value += "\n" + exp.Message; }
-
-            static void ServerConnected(object sender, EventArgs args)
-            {
-                UCServerCreateViewModel.TextLogs.Value += "\nServer  connected";
-            }
-            static void ServerDisconnected(object sender, EventArgs args)
-            {
-                UCServerCreateViewModel.TextLogs.Value += "\nServer disconnected";
-            }        
-            static void MessageReceived(object sender, MessageReceivedEventArgs args)
-            {
-                if (args.Metadata != null)
-                {
-                    foreach (KeyValuePair<object, object> keyValue in args.Metadata)
-                    {
-                        ServerMetadataHandler.OnMetadataReceived(keyValue.Key.ToString(), keyValue.Value.ToString());
-                    }
-                    args.Metadata.Clear();
-                }
-
-                if (Encoding.UTF8.GetString(args.Data) != null & Encoding.UTF8.GetString(args.Data) != "" & Encoding.UTF8.GetString(args.Data) != string.Empty)
-                {
-                    if (Encoding.UTF8.GetString(args.Data).Contains("Загрузка на сервере завершена"))
-                    {
-                        DowloadInfoUpdater.OnDowloadComplitedOnServer();
-                        UCServerCreateViewModel.TextLogs.Value += $"\n{Encoding.UTF8.GetString(args.Data)}";
-                    }
-                    else
-                        UCServerCreateViewModel.TextLogs.Value += $"\n{Encoding.UTF8.GetString(args.Data)}";
-                }            
-            }
         }
-
         public static void Disconnect()
         {
             client.Disconnect();
@@ -66,6 +34,38 @@ namespace ServerCreation.Engine
                 client.Send(verCore + "^" + fileName);
             }
             catch (Exception exp) { UCLogsViewModel.TextLogs.Value += "\n" + exp.Message; }
+        }
+
+
+        private static void ServerConnected(object sender, EventArgs args)
+        {
+            UCServerCreateViewModel.TextLogs.Value += "\nServer  connected";
+        }
+        private static void ServerDisconnected(object sender, EventArgs args)
+        {
+            UCServerCreateViewModel.TextLogs.Value += "\nServer disconnected";
+        }
+        private static void MessageReceived(object sender, MessageReceivedEventArgs args)
+        {
+            if (args.Metadata != null)
+            {
+                foreach (KeyValuePair<object, object> keyValue in args.Metadata)
+                {
+                    ServerMetadataHandler.OnMetadataReceived(keyValue.Key.ToString(), keyValue.Value.ToString());
+                }
+                args.Metadata.Clear();
+            }
+
+            if (Encoding.UTF8.GetString(args.Data) != "" & Encoding.UTF8.GetString(args.Data) != string.Empty)
+            {
+                if (Encoding.UTF8.GetString(args.Data).Contains("Загрузка на сервере завершена"))
+                {
+                    DowloadInfoUpdater.OnDowloadComplitedOnServer();
+                    UCServerCreateViewModel.TextLogs.Value += $"\n{Encoding.UTF8.GetString(args.Data)}";
+                }
+                else
+                    UCServerCreateViewModel.TextLogs.Value += $"\n{Encoding.UTF8.GetString(args.Data)}";
+            }
         }
     }
 }
