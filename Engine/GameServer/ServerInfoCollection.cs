@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,17 +10,7 @@ namespace ServerCreation.Engine.GameServer
 {
     public class ServerInfoCollection
     {
-        private static ObservableCollection<ServerCollectionModel> ServerCollection { get; set; }
-
-        public static void SetServerCollectionInfo(ObservableCollection<ServerCollectionModel> lst)
-        {
-            ServerCollection = lst;
-        }
-
-        public static ObservableCollection<ServerCollectionModel> GetServerCollectionInfo()
-        {
-            return ServerCollection;
-        }
+        public static List<ServerCollectionModel> ServerCollection = new();
     }
 
     public class ServerCollectionModel
