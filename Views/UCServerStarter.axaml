@@ -79,6 +79,7 @@
 						<TabItem Header="{Binding Header}"/>
 					</DataTemplate>
 				</TabControl.ItemTemplate>
+				
 				<TabControl.ContentTemplate>
 					<DataTemplate>
 						<StackPanel Orientation="Vertical">
@@ -86,7 +87,7 @@
 							<TextBox Text="{Binding Text2}"/>
 						</StackPanel>
 					</DataTemplate>
-				</TabControl.ContentTemplate>
+				</TabControl.ContentTemplate>		
 			</TabControl>
 		</Grid>
 	</Grid>
