@@ -13,10 +13,12 @@
 	<UserControl.Styles>
 		<Style Selector="TabItem">
 			<Setter Property="Background" Value="BlueViolet"/>
+			<Setter Property="Height" Value="20"/>
 		</Style>
 
 		<Style Selector="TabItem:selected">
 			<Setter Property="Background" Value="AliceBlue"/>
+			<Setter Property="Height" Value="20"/>
 		</Style>
 
 		<Style Selector="Button">
@@ -71,25 +73,21 @@
 
 		<!-- info grid -->
 		<Grid RowDefinitions="25, *" Grid.Column="1">
-
-			<!-- Tabs grid -->
-			<Grid Grid.Row="0" Background="AliceBlue" >
-				<TabControl Grid.Row="1" Items="{Binding TabItems}">
-					<TabControl.ItemTemplate>
-						<DataTemplate>
-							<TabItem Header="{Binding Header}">
-								<StackPanel Orientation="Horizontal">
-									<TextBlock Text="content"/>
-								</StackPanel>
-							</TabItem>
-						</DataTemplate>
-					</TabControl.ItemTemplate>
-				</TabControl>
-			</Grid>
-
-			<!-- Server output/input -->
-
-			
+			<TabControl Grid.Row="1" Items="{Binding TabItems}">
+				<TabControl.ItemTemplate>
+					<DataTemplate>
+						<TabItem Header="{Binding Header}"/>
+					</DataTemplate>
+				</TabControl.ItemTemplate>
+				<TabControl.ContentTemplate>
+					<DataTemplate>
+						<StackPanel Orientation="Vertical">
+							<TextBox Text="{Binding Text1}" Height="200"/>
+							<TextBox Text="{Binding Text2}"/>
+						</StackPanel>
+					</DataTemplate>
+				</TabControl.ContentTemplate>
+			</TabControl>
 		</Grid>
 	</Grid>
 </UserControl>
