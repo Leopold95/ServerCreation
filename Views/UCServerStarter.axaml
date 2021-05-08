@@ -64,38 +64,31 @@
 							</Style>
 						</Button.Styles>
 					</Button>
+				<Button Command="{Binding Cmmd}"/>
 				</Grid>
 			</Border>
 		</Grid>
 
 		<!-- info grid -->
-		<Grid RowDefinitions="25, *" Grid.Column="1" Background="AntiqueWhite">
+		<Grid RowDefinitions="25, *" Grid.Column="1">
 
 			<!-- Tabs grid -->
 			<Grid Grid.Row="0" Background="AliceBlue" >
-				<TabControl Grid.Row="1">
-					<TabItem>
-						<TabItem.Header>
-							<StackPanel Orientation="Horizontal">
-								<TextBlock Text="Server 1"/>
-							</StackPanel>
-						</TabItem.Header>
-					</TabItem>
-					<TabItem>
-						<TabItem.Header>
-							<StackPanel Orientation="Horizontal">
-								<TextBlock Text="Server 2"/>
-							</StackPanel>
-						</TabItem.Header>
-					</TabItem>
+				<TabControl Grid.Row="1" Items="{Binding TabItems}">
+					<TabControl.ItemTemplate>
+						<DataTemplate>
+							<TabItem Header="{Binding Header}">
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="content"/>
+								</StackPanel>
+							</TabItem>
+						</DataTemplate>
+					</TabControl.ItemTemplate>
 				</TabControl>
 			</Grid>
 
 			<!-- Server output/input -->
-			<Grid Grid.Row="1" RowDefinitions="*, 30">
-				<TextBox Grid.Row="0"/>
-				<TextBox Grid.Row="1"/>
-			</Grid>
+
 			
 		</Grid>
 	</Grid>
