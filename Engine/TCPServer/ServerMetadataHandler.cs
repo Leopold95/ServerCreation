@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using ServerCreation.ViewModels;
 using System.Collections.ObjectModel;
+using ServerCreation.Engine.Core;
 
 namespace ServerCreation.Engine
 {
@@ -21,8 +22,7 @@ namespace ServerCreation.Engine
                     break;
 
                 case "ServerList":
-                    //ServerInfoCollection.SetServerCollectionInfo(JsonConvert.DeserializeObject<ObservableCollection<ServerCollectionModel>>(value));
-
+                    ServerInfoCollection.SetServerCollection(JsonConvert.DeserializeObject<ObservableCollection<ServerCollectionModel>>(value));
                     UCLogsViewModel.TextLogs.Value += $"\nServerList - {value}";
                     break;
 

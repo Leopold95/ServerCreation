@@ -1,24 +1,24 @@
 ﻿using Newtonsoft.Json;
+using ServerCreation.Engine.Core;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ServerCreation.Engine.GameServer
 {
     public class ServerInfoCollection
     {
-        public static List<ServerCollectionModel> ServerCollection = new();
-    }
+        private static ObservableCollection<ServerCollectionModel> ServerCollection = new();
 
-    public class ServerCollectionModel
-    {
-        public string ServerName { get; set; } = string.Empty;
-        public string ServerProcessID { get; set; } = string.Empty;
-        public string UsedMemory { get; set; } = string.Empty;
-        public string UsedProcessor { get; set; } = string.Empty;
-        public string UsedDisk { get; set; } = string.Empty;
+
+        public static void SetServerCollection(ObservableCollection<ServerCollectionModel> call)
+        {
+            ServerCollection = call;
+        }
+
+        public static ObservableCollection<ServerCollectionModel> GetServerCollection()
+        {
+            return ServerCollection;
+        }
     }
 }

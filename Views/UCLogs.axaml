@@ -12,7 +12,8 @@
 	
 	
 	<Grid>
-		<TextBox Text="{Binding TextLogs.Value, Mode=OneWay}" IsReadOnly="True" Margin="5"/>
+		<TextBox Text="{Binding TextLogs.Value, Mode=OneWay}" MaxLength="110" IsReadOnly="True" Margin="5"/>
 	</Grid>
+	
 	
 </UserControl>
