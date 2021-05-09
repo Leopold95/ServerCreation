@@ -23,6 +23,7 @@ namespace ServerCreation.Engine
 
                 case "ServerList":
                     ServerInfoCollection.SetServerCollection(JsonConvert.DeserializeObject<ObservableCollection<ServerCollectionModel>>(value));
+
                     UCLogsViewModel.TextLogs.Value += $"\nServerList - {value}";
                     break;
 
