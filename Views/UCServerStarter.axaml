@@ -14,11 +14,16 @@
 		<Style Selector="TabItem">
 			<Setter Property="Background" Value="BlueViolet"/>
 			<Setter Property="Height" Value="20"/>
+			<Setter Property="MinHeight" Value="35" />
+			<Setter Property="FontSize" Value="20" />
+			<Setter Property="FontWeight" Value="Medium"/>
 		</Style>
 
 		<Style Selector="TabItem:selected">
 			<Setter Property="Background" Value="AliceBlue"/>
-			<Setter Property="Height" Value="20"/>
+			<Setter Property="MinHeight" Value="35" />
+			<Setter Property="FontSize" Value="20" />
+			<Setter Property="FontWeight" Value="Medium"/>
 		</Style>
 
 		<Style Selector="Button">
@@ -66,7 +71,6 @@
 							</Style>
 						</Button.Styles>
 					</Button>
-				<Button Command="{Binding Cmmd}"/>
 				</Grid>
 			</Border>
 		</Grid>
@@ -79,7 +83,7 @@
 						<TabItem Header="{Binding Header}"/>
 					</DataTemplate>
 				</TabControl.ItemTemplate>
-				
+
 				<TabControl.ContentTemplate>
 					<DataTemplate>
 						<StackPanel Orientation="Vertical">
@@ -87,8 +91,9 @@
 							<TextBox Text="{Binding Text2}"/>
 						</StackPanel>
 					</DataTemplate>
-				</TabControl.ContentTemplate>		
+				</TabControl.ContentTemplate>
 			</TabControl>
+
 		</Grid>
 	</Grid>
 </UserControl>
