@@ -42,7 +42,7 @@
 	</UserControl.Styles>
 
 
-	<Grid ColumnDefinitions="200, *" RowDefinitions="">
+	<Grid ColumnDefinitions="200, *">
 
 		<!-- Control grid -->
 		<Grid RowDefinitions="150, *" Grid.Column="0">
