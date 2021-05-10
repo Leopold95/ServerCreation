@@ -8,9 +8,9 @@ namespace ServerCreation.Engine
 {
     public class JsonDowloadModel
     {
-        public string Speed { get; set; }
-        public string Progress { get; set; }
-        public string Recieved { get; set; }
-        public string TotalToRecirve { get; set; }
+        public string Speed { get; set; } = String.Empty;
+        public string Progress { get; set; } = String.Empty;
+        public string Recieved { get; set; } = String.Empty;
+        public string TotalToRecirve { get; set; } = String.Empty;
     }
 }

@@ -5,7 +5,7 @@ namespace ServerCreation.Engine
 {
     public static class VersionsContoller
     {
-        public static async void VersionsManager(string verion, string filename)
+        public static void VersionsManager(string verion, string filename)
         {
             switch (verion)
             {

@@ -27,4 +27,7 @@
       <DependentUpon>UCSeverCreate.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Controls\MyTabcontrol.axaml" />
+  </ItemGroup>
 </Project>
