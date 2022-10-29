@@ -11,12 +11,16 @@ namespace ServerCreation.ViewModels
 {
     public class UCServerCreateViewModel
     {
-        AppSettings settings = AppSettings.GetSettings();
+        private AppSettings settings = AppSettings.GetSettings();
+
+        private JsonParser _parser = new();
 
   
         public UCServerCreateViewModel()
         {
             SetSettings();
+
+            Versions = _parser.GetPaperVersionList();
         }
         private void SetSettings()
         {
@@ -41,14 +45,11 @@ namespace ServerCreation.ViewModels
         }
 
 
-        public ObservableCollection<string> Versions { get; set; } = new ObservableCollection<string>()
-        { 
-            "1.7.10", "1.8.8", "1.9.4", "1.10.2", "1.11.2", "1.12.2", "1.13.2", "1.14.4", "1.15.2", "1.16.5"
-        };
+        public ObservableCollection<string> Versions { get; set; } 
         public static string SelectedVersion { get; set; } = string.Empty;
         public ObservableCollection<string> ServerCores { get; set; } = new ObservableCollection<string>() 
         {
-            "Vanilla", "Bukkit", "Spigot", "Paper", "Forge", "CatServer"
+            "Paper"
         };
 
         public static string SelectedCore { get; set; } = string.Empty;

@@ -2,19 +2,19 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-using ServerCreation.Engine;
 using ServerCreation.ViewModels;
-using System.Diagnostics;
 
 namespace ServerCreation.Views
 {
     public class MainWindow : Window
     {
         private ContentControl contentControl;
+        public static MainWindow? MainWindowPtr;
 
         public MainWindow()
         {
             InitializeComponent();
+            MainWindowPtr = this;
 #if DEBUG
             this.AttachDevTools();
 #endif

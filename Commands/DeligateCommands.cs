@@ -1,4 +1,5 @@
-﻿using Avalonia.Controls;
+﻿using Avalonia;
+using Avalonia.Controls;
 using ServerCreation.Engine;
 using ServerCreation.ViewModels;
 using ServerCreation.Views;
@@ -13,10 +14,11 @@ namespace ServerCreation.Commands
         static AppSettings settings = AppSettings.GetSettings();
         public static async void ChangeDowloadFolder()
         {
-            MainWindow mv = new MainWindow();
+            MainWindow? mv = MainWindow.MainWindowPtr;
 
             OpenFolderDialog openFolderDialog = new OpenFolderDialog();
             openFolderDialog.Title = "Выберите папку загрузки сервера";
+
 
             UCServerCreateViewModel.FileLocation.Value = string.Join("", await openFolderDialog.ShowAsync(mv));
         }
@@ -60,7 +62,7 @@ namespace ServerCreation.Commands
         //UCOptionsVM Commands
         public static async void ChangeJavaLocationFolderCommand()
         {
-            MainWindow mv = new MainWindow();
+            MainWindow? mv = MainWindow.MainWindowPtr;
 
             OpenFolderDialog openFolderDialog = new OpenFolderDialog();
             openFolderDialog.Title = "Укажите путь к Java";
