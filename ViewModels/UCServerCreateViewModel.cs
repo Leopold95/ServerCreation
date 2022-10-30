@@ -6,6 +6,9 @@ using ReactiveUI;
 using System.Reactive;
 using ServerCreation.Commands;
 using System.IO;
+using ServerCreation.Engine.Json;
+
+using ObsCollStr = System.Collections.ObjectModel.ObservableCollection<string>;
 
 namespace ServerCreation.ViewModels
 {
@@ -13,8 +16,7 @@ namespace ServerCreation.ViewModels
     {
         private AppSettings settings = AppSettings.GetSettings();
 
-        private JsonParser _parser = new();
-
+        private static JsonParser _parser = new();
   
         public UCServerCreateViewModel()
         {
@@ -45,14 +47,27 @@ namespace ServerCreation.ViewModels
         }
 
 
-        public ObservableCollection<string> Versions { get; set; } 
-        public static string SelectedVersion { get; set; } = string.Empty;
+        public static ObservableCollection<string> Builds { get; set; } = new();
+        public static string SelectedBuild { get; set; } = string.Empty;
+
+        public ObservableCollection<string> Versions { get; set; } = new();
+        private static string _selectedVersion = string.Empty;
+        public static string SelectedVersion 
+        {
+            get { return _selectedVersion; }
+            set 
+            {
+                Builds = _parser.GetLastVersionBuilds(value);
+                _selectedVersion = value; 
+            }
+        }
+
         public ObservableCollection<string> ServerCores { get; set; } = new ObservableCollection<string>() 
         {
             "Paper"
         };
-
         public static string SelectedCore { get; set; } = string.Empty;
+
         static public ReactiveProperty<string> TextLogs { get; set; } = new();
         public ReactiveProperty<bool> IsTextLogsVisibly { get; set; } = new();
         public ReactiveProperty<bool> IsServerDowloaderVisible { get; set; } = new();
@@ -72,9 +87,14 @@ namespace ServerCreation.ViewModels
 
 
 
-        public ReactiveCommand<Unit, Unit> DowloadCommand { get; } = ReactiveUI.ReactiveCommand.Create(() => { DeligateCommands.DowloadCommand(SelectedVersion, SelectedCore, FileLocation.Value, FileName.Value); });
+        //public ReactiveCommand<Unit, Unit> DowloadCommand { get; } = ReactiveUI.ReactiveCommand.Create(() => { DeligateCommands.DowloadCommand(SelectedVersion, SelectedCore, FileLocation.Value, FileName.Value); });
         public ReactiveCommand<Unit, Unit> ConnectCommand { get; } = ReactiveUI.ReactiveCommand.Create(() => { DeligateCommands.ConnectCommand(); });
         public ReactiveCommand<Unit, Unit> ChangeDowloadFolder { get; } = ReactiveUI.ReactiveCommand.Create(() => { DeligateCommands.ChangeDowloadFolder(); });
         public ReactiveCommand<Unit, Unit> DisconnectCommand { get; } = ReactiveUI.ReactiveCommand.Create(() => { DeligateCommands.Disconnect(); });
+
+        private void OnDowloadClicked()
+        {
+
+        }
     }
 }

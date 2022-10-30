@@ -36,8 +36,7 @@ namespace ServerCreation.Views
         public void OnBtnOptionsClick(object sender, RoutedEventArgs args)
         {
             contentControl.Content = new UCOptions();
-            DataContext = contentControl;
-            
+            DataContext = contentControl;    
         }
 
         public void ServerStarter_CLick(object sender, RoutedEventArgs args)

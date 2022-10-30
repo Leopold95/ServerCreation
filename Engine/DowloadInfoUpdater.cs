@@ -2,36 +2,33 @@
 using Newtonsoft.Json;
 using ServerCreation.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ServerCreation.Engine
 {
-    public class DowloadInfoUpdater
+    public class DowloadInfo
     {
-        //If Server is not using
-        public static void OnNewUpdateInfo(DownloadProgressChangedEventArgs e)
-        {
-            UCServerCreateViewModel.DowloadPersents.Value = Convert.ToInt32(e.ProgressPercentage);
-            UCServerCreateViewModel.ProgressPersentage.Value = Convert.ToUInt32(e.ProgressPercentage) + "%";
+        public int PersentsReady { get; private set; }
+        public string Speed { get; private set; } = string.Empty;
+        public string SizeReady { get; private set; } = string.Empty;
+        public string TotalSize { get; private set; } = string.Empty;
 
-            UCServerCreateViewModel.UpdSpeedInfo.Value = $"Скорость: {CalcMemoryMensurableUnit(e.BytesPerSecondSpeed)}/s";
-            UCServerCreateViewModel.UpdBytesRecivedInfo.Value = $"Скачано: {CalcMemoryMensurableUnit(e.ReceivedBytesSize)}";
-            UCServerCreateViewModel.UpdTotalBytesRecivedInfo.Value = $"Осталось: {CalcMemoryMensurableUnit(e.TotalBytesToReceive)}";
-        }
-        public static void OnStopUpdateInfo()
+        public void Update(ref DownloadProgressChangedEventArgs e)
         {
-            UCLogsViewModel.TextLogs.Value += "\nDowload comlited";
-            UCServerCreateViewModel.DowloadPersents.Value = 0;
-            UCServerCreateViewModel.ProgressPersentage.Value = "";
-
-            UCServerCreateViewModel.UpdSpeedInfo.Value = "Скорость:";
-            UCServerCreateViewModel.UpdBytesRecivedInfo.Value = "Скачано:";
-            UCServerCreateViewModel.UpdTotalBytesRecivedInfo.Value = "Осталось:";
+            PersentsReady = Convert.ToInt32(e.ProgressPercentage);
+            Speed = CalcMemoryMensurableUnit(e.BytesPerSecondSpeed);
+            SizeReady = CalcMemoryMensurableUnit(e.ReceivedBytesSize);
+            TotalSize = CalcMemoryMensurableUnit(e.TotalBytesToReceive);
         }
-        static string CalcMemoryMensurableUnit(double bytes)
+
+        public void Clear()
+        {
+            PersentsReady = 0;
+            Speed = string.Empty;
+            SizeReady = string.Empty;
+            TotalSize = string.Empty;
+        }
+
+        private string CalcMemoryMensurableUnit(double bytes)
         {
             double kb = bytes / 1024; // · 1024 Bytes = 1 Kilobyte 
             double mb = kb / 1024; // · 1024 Kilobytes = 1 Megabyte 
@@ -47,27 +44,6 @@ namespace ServerCreation.Engine
 
             result = result.Replace("/", ".");
             return result;
-        }
-
-
-        //Is server using
-        public static void OnNewDowloadInfoInServer(string json)
-        {
-            JsonDowloadModel jsonCreator = JsonConvert.DeserializeObject<JsonDowloadModel>(json);
-
-            UCServerCreateViewModel.DowloadPersents.Value = Convert.ToInt32(jsonCreator.Progress);
-            UCServerCreateViewModel.ProgressPersentage.Value = jsonCreator.Progress;
-            UCServerCreateViewModel.UpdSpeedInfo.Value = $"Скорость: {jsonCreator.Speed}/s";
-            UCServerCreateViewModel.UpdBytesRecivedInfo.Value = $"Скачано: {jsonCreator.Recieved}";
-            UCServerCreateViewModel.UpdTotalBytesRecivedInfo.Value = $"Осталось: {jsonCreator.TotalToRecirve}";
-        }
-        public static void OnDowloadComplitedOnServer()
-        {
-            UCServerCreateViewModel.DowloadPersents.Value = 0;
-            UCServerCreateViewModel.ProgressPersentage.Value = "";
-            UCServerCreateViewModel.UpdSpeedInfo.Value = $"Скорость: ";
-            UCServerCreateViewModel.UpdBytesRecivedInfo.Value = $"Скачано: ";
-            UCServerCreateViewModel.UpdTotalBytesRecivedInfo.Value = $"Осталось: ";
         }
     }
 }

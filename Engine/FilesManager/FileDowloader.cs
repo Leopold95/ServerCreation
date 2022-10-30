@@ -9,8 +9,12 @@ using DownloadProgressChangedEventArgs = Downloader.DownloadProgressChangedEvent
 namespace ServerCreation.Engine
 {
     public class FileDowloader
-    { 
-        public static async void DowloadServer(string url, string fileName)
+    {
+        public bool IsDowloading { get; private set; }
+
+        public DowloadInfo Info { get; private set; } = new();
+
+        public void DowloadServer(string url, string fileName)
         {
             var downloadOpt = new DownloadConfiguration()
             {
@@ -41,23 +45,23 @@ namespace ServerCreation.Engine
             downloader.DownloadFileCompleted += OnDownloadFileCompleted;
             downloader.DownloadProgressChanged += OnDowloadProgresChanged;
 
-            await downloader.DownloadFileTaskAsync(url, fileName);
-            
+            downloader.DownloadFileTaskAsync(url, fileName);
+        }
 
-            void OnDowloadStarted(object sender, DownloadStartedEventArgs e)
-            {
-                UCLogsViewModel.TextLogs.Value += "\nDowload started";
-            }
+        void OnDowloadStarted(object sender, DownloadStartedEventArgs e)
+        {
+            IsDowloading = true;
+        }
 
-            void OnDownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
-            {                
-                DowloadInfoUpdater.OnStopUpdateInfo();
-            }
+        void OnDownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            IsDowloading = false;
+            Info.Clear();
+        }
 
-            void OnDowloadProgresChanged(object sender, DownloadProgressChangedEventArgs e)
-            {
-                DowloadInfoUpdater.OnNewUpdateInfo(e);
-            }
-        }       
+        void OnDowloadProgresChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            Info.Update(ref e);
+        }
     }
 }

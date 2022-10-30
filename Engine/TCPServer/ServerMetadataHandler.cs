@@ -18,7 +18,7 @@ namespace ServerCreation.Engine
             switch (key)
             {
                 case "JsonDowloadInfo":
-                    DowloadInfoUpdater.OnNewDowloadInfoInServer(value);
+                    DowloadInfo.OnNewDowloadInfoInServer(value);
                     break;
 
                 case "ServerList":

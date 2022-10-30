@@ -5,8 +5,14 @@ namespace ServerCreation.Engine
 {
     public static class VersionsContoller
     {
+        public static void VersionsManager(string verion, string build, string filename)
+        {
+            FileDowloader.DowloadServer($"https://papermc.io/api/v2/projects/paper/versions/{verion}/builds/{build}/downloads/paper-{verion}-{build}.jar", filename);
+        }
+
         public static void VersionsManager(string verion, string filename)
         {
+
             switch (verion)
             {
                 #region Vanilla

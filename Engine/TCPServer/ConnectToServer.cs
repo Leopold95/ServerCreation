@@ -60,7 +60,7 @@ namespace ServerCreation.Engine
             {
                 if (Encoding.UTF8.GetString(args.Data).Contains("Загрузка на сервере завершена"))
                 {
-                    DowloadInfoUpdater.OnDowloadComplitedOnServer();
+                    DowloadInfo.OnDowloadComplitedOnServer();
                     UCServerCreateViewModel.TextLogs.Value += $"\n{Encoding.UTF8.GetString(args.Data)}";
                 }
                 else
