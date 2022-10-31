@@ -9,6 +9,9 @@ using System.IO;
 using ServerCreation.Engine.Json;
 
 using ObsCollStr = System.Collections.ObjectModel.ObservableCollection<string>;
+using ServerCreation.Engine.FilesManager;
+using DynamicData;
+using System.Linq;
 
 namespace ServerCreation.ViewModels
 {
@@ -22,7 +25,9 @@ namespace ServerCreation.ViewModels
         {
             SetSettings();
 
-            Versions = _parser.GetPaperVersionList();
+            var v = _parser.GetPaperVersionList();
+            v.Reverse();
+            Versions = v;
         }
         private void SetSettings()
         {
@@ -57,7 +62,14 @@ namespace ServerCreation.ViewModels
             get { return _selectedVersion; }
             set 
             {
-                Builds = _parser.GetLastVersionBuilds(value);
+                Builds.Clear();
+                var v = _parser.GetLastVersionBuilds(value);
+                v.Reverse();
+                foreach (var item in v)
+                {
+                    Builds.Add(item);
+                }
+
                 _selectedVersion = value; 
             }
         }
@@ -92,9 +104,13 @@ namespace ServerCreation.ViewModels
         public ReactiveCommand<Unit, Unit> ChangeDowloadFolder { get; } = ReactiveUI.ReactiveCommand.Create(() => { DeligateCommands.ChangeDowloadFolder(); });
         public ReactiveCommand<Unit, Unit> DisconnectCommand { get; } = ReactiveUI.ReactiveCommand.Create(() => { DeligateCommands.Disconnect(); });
 
-        private void OnDowloadClicked()
+        private async void OnDowloadClicked()
         {
-
+            DowloadSession session = new DowloadSession();
+            await session.BeginDownloadTaskAsync(
+                UrlGenerator.GetPaperDowload(SelectedVersion, SelectedBuild),
+                $"{FileLocation}" + "\\" + FileName + ".jar"
+                );
         }
     }
 }

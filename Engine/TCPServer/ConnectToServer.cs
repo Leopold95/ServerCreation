@@ -1,4 +1,5 @@
-﻿using ServerCreation.ViewModels;
+﻿using ServerCreation.Engine.FilesManager;
+using ServerCreation.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -60,7 +61,8 @@ namespace ServerCreation.Engine
             {
                 if (Encoding.UTF8.GetString(args.Data).Contains("Загрузка на сервере завершена"))
                 {
-                    DowloadInfo.OnDowloadComplitedOnServer();
+                    //DowloadInfo.OnDowloadComplitedOnServer();
+                    //TODO
                     UCServerCreateViewModel.TextLogs.Value += $"\n{Encoding.UTF8.GetString(args.Data)}";
                 }
                 else

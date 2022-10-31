@@ -29,7 +29,8 @@ namespace ServerCreation.Commands
                 if (selectedCore != null && selectedVer != null)
                 {
                     if (fileLoc != "" & fileLoc != null & filename != "" & filename != null)
-                        VersionsContoller.VersionsManager(selectedVer + "-" + selectedCore, $"{fileLoc}" + "\\" + filename + ".jar");
+                        None();
+                    //VersionsContoller.VersionsManager(selectedVer + "-" + selectedCore, $"{fileLoc}" + "\\" + filename + ".jar");
                     else
                         UCLogsViewModel.TextLogs.Value += "\nРасположения или имя файла недопустимы!";
                 }
@@ -57,6 +58,8 @@ namespace ServerCreation.Commands
         {
             ConnectToServer.Disconnect();
         }
+
+        private static void None() { }
 
 
         //UCOptionsVM Commands

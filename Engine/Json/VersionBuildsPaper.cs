@@ -17,6 +17,6 @@ namespace ServerCreation.Engine.Json
         public string Version { get; set; }
 
         [JsonProperty("builds")]
-        public ObservableCollection<string> Builds { get; set; }
+        public List<string> Builds { get; set; }
     }
 }

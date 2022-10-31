@@ -1,13 +1,9 @@
 ﻿using ServerCreation.Engine.GameServer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using ServerCreation.ViewModels;
 using System.Collections.ObjectModel;
 using ServerCreation.Engine.Core;
+using ServerCreation.Engine.FilesManager;
 
 namespace ServerCreation.Engine
 {
@@ -18,7 +14,8 @@ namespace ServerCreation.Engine
             switch (key)
             {
                 case "JsonDowloadInfo":
-                    DowloadInfo.OnNewDowloadInfoInServer(value);
+                    //DowloadInfo.OnNewDowloadInfoInServer(value);
+                    //TODO
                     break;
 
                 case "ServerList":

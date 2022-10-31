@@ -1,6 +1,5 @@
 ﻿using Downloader;
-using ServerCreation.ViewModels;
-using System;
+using ServerCreation.Engine.FilesManager;
 using System.ComponentModel;
 using System.Net;
 using System.Reflection;
@@ -14,7 +13,7 @@ namespace ServerCreation.Engine
 
         public DowloadInfo Info { get; private set; } = new();
 
-        public void DowloadServer(string url, string fileName)
+        public void Dowload(string url, string fileName)
         {
             var downloadOpt = new DownloadConfiguration()
             {

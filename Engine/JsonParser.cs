@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -44,7 +45,7 @@ namespace ServerCreation.Engine
             return model.Builds.Last().ToString();
         }
 
-        public ObservableCollection<string> GetLastVersionBuilds(string version)
+        public List<string> GetLastVersionBuilds(string version)
         {
             string? s;
 

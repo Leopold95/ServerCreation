@@ -1,9 +1,7 @@
 ﻿using Downloader;
-using Newtonsoft.Json;
-using ServerCreation.ViewModels;
 using System;
 
-namespace ServerCreation.Engine
+namespace ServerCreation.Engine.FilesManager
 {
     public class DowloadInfo
     {
