@@ -2,20 +2,20 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:vm="using:ServerCreation.ViewModels"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"	 
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
 			 xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
 			 
-			 mc:Ignorable="d" Width="800" Height="410" 
+			 mc:Ignorable="d" Width="800" Height="410"
 			 x:Class="ServerCreation.Views.UCSeverCreate">
 
 	<Design.DataContext>
-		<vm:UCServerCreateViewModel/> 
+		<vm:UCServerCreateViewModel/>
 	</Design.DataContext>
-	
+
 	<UserControl.Styles>
 		<Style Selector="Button">
-			<Setter Property="HorizontalContentAlignment" Value="Center"/> 
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
 			<Setter Property="VerticalContentAlignment" Value="Center"/>
 			<Setter Property="Margin" Value="0.5"/>
 		</Style>
@@ -24,7 +24,7 @@
 		</Style>
 	</UserControl.Styles>
 
-	
+
 	<Grid ColumnDefinitions="300, *">
 
 		<!-- List Boxes -->
@@ -69,11 +69,11 @@
 					<Button Content="Скачать" Command="{Binding OnDowloadClicked}" HorizontalAlignment="Center"  Width="150"/>
 					<Button Content="Отключиться от сервера" Command="{Binding DisconnectCommand}" IsEnabled="{Binding BtnDisconnectFromVisible.Value}" HorizontalAlignment="Left"/>
 				</Grid>
-				
+
 			</Grid>
 
 			<TextBox Grid.Row="1" Text="{Binding TextLogs.Value, Mode=OneWay}" IsVisible="{Binding IsTextLogsVisibly.Value}" IsReadOnly="True" Margin="5"/>
-			
-		</Grid>		
+
+		</Grid>
 	</Grid>
 </UserControl>
