@@ -15,11 +15,11 @@
     <PackageReference Include="Avalonia.Xaml.Behaviors" Version="0.10.18" />
     <PackageReference Include="Avalonia.Xaml.Interactions" Version="0.10.18" />
     <PackageReference Include="Avalonia.Xaml.Interactivity" Version="0.10.18" />
-    <PackageReference Include="Downloader" Version="2.4.1" />
+    <PackageReference Include="Downloader" Version="3.0.1" />
     <PackageReference Include="MessageBox.Avalonia" Version="2.1.0" />
-    <PackageReference Include="ReactiveProperty" Version="8.1.2" />
+    <PackageReference Include="ReactiveProperty" Version="8.2.0" />
     <PackageReference Include="ReactiveUI" Version="18.3.1" />
-    <PackageReference Include="SuperSimpleTcp" Version="3.0.4" />
+    <PackageReference Include="SuperSimpleTcp" Version="3.0.5" />
     <PackageReference Include="WatsonTcp" Version="4.8.14.14" />
   </ItemGroup>
   <ItemGroup>
