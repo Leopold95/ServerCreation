@@ -38,39 +38,39 @@
 		<Grid RowDefinitions="205, *" Grid.Column="1" Background="AliceBlue">
 
 			<!-- Main grid for control panel -->
-			<Grid ColumnDefinitions="320, *" RowDefinitions="140, 40, *" Grid.Row="0"  Margin="5, 0, 5, 0">
+			<StackPanel  Grid.Row="0"  Margin="5, 0, 5, 0">
 
-				<!-- Control panel grid -->
-				<Grid RowDefinitions="25, 30, 25, 30, 30, 40, *" ColumnDefinitions="210, 80, *"  Grid.Column="0" Grid.Row="0">
+				<!-- Control panel -->
+				<StackPanel Grid.Column="0" Grid.Row="0">
 					<TextBlock Text="Укажите путь загрузки" />
 
-					<TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding FileLocation.Value}" IsEnabled="{Binding IsFileLocEnabled.Value}" IsReadOnly="True"/>
-					<Button Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Content="..." Command="{Binding ChangeDowloadFolder}" IsEnabled="{Binding IsFileLocBtnEnebled.Value}"/>
-
-					<TextBlock Text="Введите имя сервера" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-					<TextBox Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding FileName.Value}" Watermark="Введите имя сервера"/>
-
-					<ProgressBar Grid.ColumnSpan="2" Grid.Row="4"  Value="{Binding DowloadPersents.Value}" Maximum="100" Height="20"/>
-					<Label  Grid.ColumnSpan="2" Grid.Row="4" Content="{Binding ProgressPersentage.Value}" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-				</Grid>
-
-				<!-- Dowload info upadate grid -->
-				<Border Grid.Column="1" Grid.Row="0" Background="WhiteSmoke" CornerRadius="7" BorderBrush="Black" BorderThickness="1" Margin="5, 5, 5, 5">
-					<Grid RowDefinitions="30, 30, 30, *">
-						<TextBlock Grid.Row="0" Text="{Binding UpdSpeedInfo.Value}"/>
-						<TextBlock Grid.Row="1" Text="{Binding UpdBytesRecivedInfo.Value}"/>
-						<TextBlock Grid.Row="2" Text="{Binding UpdTotalBytesRecivedInfo.Value}"/>
-					</Grid>
-				</Border>
+					<DockPanel>
+						<TextBox Text="{Binding FileLocation.Value}" IsEnabled="{Binding IsFileLocEnabled.Value}" IsReadOnly="True"/>
+						<Button Content="..." Command="{Binding ChangeDowloadFolder}" IsEnabled="{Binding IsFileLocBtnEnebled.Value}" HorizontalAlignment="Right"/>
+					</DockPanel>
+					
+					<TextBox Text="{Binding FileName.Value}" Watermark="Введите имя сервера"/>
+					<ProgressBar Grid.ColumnSpan="2"  Value="{Binding DowloadPersents.Value}" Maximum="100" Height="20"/>
+					<Label Content="{Binding ProgressPersentage.Value}" HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+				</StackPanel>
 
 				<!-- Remoute buttons grid -->
 				<Grid Grid.ColumnSpan="2" Grid.Row="1">
 					<Button Content="Подключиться к серверу" Command="{Binding ConnectCommand}" IsEnabled="{Binding BtnConnectToServerVisible.Value}" HorizontalAlignment="Right"/>
-					<Button Content="Скачать" Command="{Binding OnDowloadClicked}" HorizontalAlignment="Center"  Width="150"/>
+					<Button Content="Скачать" Command="{Binding DowloadCommand}" HorizontalAlignment="Center"/>
 					<Button Content="Отключиться от сервера" Command="{Binding DisconnectCommand}" IsEnabled="{Binding BtnDisconnectFromVisible.Value}" HorizontalAlignment="Left"/>
 				</Grid>
 
-			</Grid>
+				<!-- Dowload info upadate grid -->
+				<Border Grid.Row="2" Background="WhiteSmoke" Padding="5" CornerRadius="7" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" >
+					<DockPanel>
+						<TextBlock Text="txt "/>
+						<TextBlock Text="txtsdsd "/>
+						<TextBlock Text="txtsdsdddsd "/>
+					</DockPanel>
+				</Border>
+
+			</StackPanel>
 
 			<TextBox Grid.Row="1" Text="{Binding TextLogs.Value, Mode=OneWay}" IsVisible="{Binding IsTextLogsVisibly.Value}" IsReadOnly="True" Margin="5"/>
 

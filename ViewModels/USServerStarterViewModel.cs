@@ -15,7 +15,7 @@ namespace ServerCreation.ViewModels
 
 
 
-        public ReactiveCommand<Unit, Unit> Send { get; } = ReactiveUI.ReactiveCommand.Create(() => { DeligateCommands.SendCommandToServer(); });
-        public ReactiveCommand<Unit, Unit> TestCommand { get; } = ReactiveUI.ReactiveCommand.Create(() => { DeligateCommands.StartServer(); });
+        public ReactiveCommand<Unit, Unit> Send { get; } = ReactiveUI.ReactiveCommand.Create(() => { ServerStarterCommands.SendCommandToServer(); });
+        public ReactiveCommand<Unit, Unit> TestCommand { get; } = ReactiveUI.ReactiveCommand.Create(() => { ServerStarterCommands.StartServer(); });
     }
 }

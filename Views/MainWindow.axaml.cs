@@ -8,13 +8,12 @@ namespace ServerCreation.Views
 {
     public class MainWindow : Window
     {
-        private ContentControl contentControl;
-        public static MainWindow? MainWindowPtr;
+        private ContentControl? contentControl;
+        public static MainWindow? MainWindowPtr { get; private set; }
 
         public MainWindow()
         {
             InitializeComponent();
-            MainWindowPtr = this;
 #if DEBUG
             this.AttachDevTools();
 #endif
@@ -25,6 +24,7 @@ namespace ServerCreation.Views
             AvaloniaXamlLoader.Load(this);
             DataContext = new MainWindowViewModel();
             contentControl = this.FindControl<ContentControl>("contentControl");
+            MainWindowPtr = this;
         }
 
         public void ChangeServerClick(object sender, RoutedEventArgs args)
@@ -50,7 +50,5 @@ namespace ServerCreation.Views
             contentControl.Content = new UCLogs();
             DataContext = contentControl;
         }
-
-
     }
 }

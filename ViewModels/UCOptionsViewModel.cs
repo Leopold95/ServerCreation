@@ -24,7 +24,7 @@ namespace ServerCreation.ViewModels
         public ReactiveProperty<string> IpText { get; set; } = new();
         public static ReactiveProperty<string> JavaFolder { get; set; } = new();
 
-        public ReactiveCommand<Unit, Unit> ChangeJavaFolderCommand { get; } = ReactiveUI.ReactiveCommand.Create(() => { DeligateCommands.ChangeJavaLocationFolderCommand(); });
+        public ReactiveCommand<Unit, Unit> ChangeJavaFolderCommand { get; } = ReactiveUI.ReactiveCommand.Create(() => { OptionsCommands.ChangeJavaLocationFolderCommand(); });
 
         public void SaveCommand()
         {

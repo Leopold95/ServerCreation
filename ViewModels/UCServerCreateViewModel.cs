@@ -42,10 +42,11 @@ namespace ServerCreation.ViewModels
             }
             else if (settings.IsServer == false)
             {
+
                 IsTextLogsVisibly.Value = false;
                 IsFileLocEnabled.Value = true;
                 IsFileLocBtnEnebled.Value = true;
-                FileLocation.Value = Directory.GetCurrentDirectory();
+                FileLocation.Value = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                 BtnConnectToServerVisible.Value = false;
                 BtnDisconnectFromVisible.Value = false;
             }
@@ -84,7 +85,7 @@ namespace ServerCreation.ViewModels
         public ReactiveProperty<bool> IsTextLogsVisibly { get; set; } = new();
         public ReactiveProperty<bool> IsServerDowloaderVisible { get; set; } = new();
         public static ReactiveProperty<string> FileLocation { get; set; } = new();
-        public static ReactiveProperty<string> FileName { get; set; } = new("server");
+        public static ReactiveProperty<string> FileName { get; set; } = new("MCServerJar");
         public static ReactiveProperty<int> DowloadPersents { get; set; } = new();
         public ReactiveProperty<bool> IsFileLocEnabled { get; set; } = new();
         public ReactiveProperty<bool> IsFileLocBtnEnebled { get; set; } = new();
@@ -99,10 +100,10 @@ namespace ServerCreation.ViewModels
 
 
 
-        //public ReactiveCommand<Unit, Unit> DowloadCommand { get; } = ReactiveUI.ReactiveCommand.Create(() => { DeligateCommands.DowloadCommand(SelectedVersion, SelectedCore, FileLocation.Value, FileName.Value); });
-        public ReactiveCommand<Unit, Unit> ConnectCommand { get; } = ReactiveUI.ReactiveCommand.Create(() => { DeligateCommands.ConnectCommand(); });
-        public ReactiveCommand<Unit, Unit> ChangeDowloadFolder { get; } = ReactiveUI.ReactiveCommand.Create(() => { DeligateCommands.ChangeDowloadFolder(); });
-        public ReactiveCommand<Unit, Unit> DisconnectCommand { get; } = ReactiveUI.ReactiveCommand.Create(() => { DeligateCommands.Disconnect(); });
+        public ReactiveCommand<Unit, Unit> DowloadCommand { get; } = ReactiveUI.ReactiveCommand.Create(() => { ServerCreateCommands.DowloadCommand(SelectedVersion, SelectedCore, FileLocation.Value, FileName.Value); });
+        public ReactiveCommand<Unit, Unit> ConnectCommand { get; } = ReactiveUI.ReactiveCommand.Create(() => { ServerCreateCommands.ConnectCommand(); });
+        public ReactiveCommand<Unit, Unit> ChangeDowloadFolder { get; } = ReactiveUI.ReactiveCommand.Create(() => { ServerCreateCommands.ChangeDowloadFolder(); });
+        public ReactiveCommand<Unit, Unit> DisconnectCommand { get; } = ReactiveUI.ReactiveCommand.Create(() => { ServerCreateCommands.Disconnect(); });
 
         private async void OnDowloadClicked()
         {
