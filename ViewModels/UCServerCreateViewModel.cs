@@ -107,11 +107,7 @@ namespace ServerCreation.ViewModels
 
         private async void OnDowloadClicked()
         {
-            DowloadSession session = new DowloadSession();
-            await session.BeginDownloadTaskAsync(
-                UrlGenerator.GetPaperDowload(SelectedVersion, SelectedBuild),
-                $"{FileLocation}" + "\\" + FileName + ".jar"
-                );
+
         }
     }
 }

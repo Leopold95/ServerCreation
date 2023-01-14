@@ -61,14 +61,35 @@
 					<Button Content="Отключиться от сервера" Command="{Binding DisconnectCommand}" IsEnabled="{Binding BtnDisconnectFromVisible.Value}" HorizontalAlignment="Left"/>
 				</Grid>
 
-				<!-- Dowload info upadate grid -->
-				<Border Grid.Row="2" Background="WhiteSmoke" Padding="5" CornerRadius="7" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" >
-					<DockPanel>
-						<TextBlock Text="txt "/>
-						<TextBlock Text="txtsdsd "/>
-						<TextBlock Text="txtsdsdddsd "/>
-					</DockPanel>
-				</Border>
+				<DockPanel Grid.Row="2">
+					<!-- Dowload info upadate grid -->
+					<Border Background="WhiteSmoke" Padding="5" CornerRadius="7" BorderBrush="Black" BorderThickness="1" >
+						<StackPanel>
+							<TextBlock Text="txt "/>
+							<TextBlock Text="txtsdsd "/>
+							<TextBlock Text="txtsdsdddsd "/>
+						</StackPanel>
+					</Border>
+ 
+					<Border Padding="5" Margin="5 0 0 0" CornerRadius="7" BorderBrush="Black" BorderThickness="1">
+						<StackPanel>
+							<TextBlock></TextBlock>
+							<TextBlock></TextBlock>
+							<TextBlock></TextBlock>
+							<TextBlock></TextBlock>
+						</StackPanel>
+					</Border>
+
+					<Border Padding="5" Margin="5 0 0 0" CornerRadius="7" BorderBrush="Black" BorderThickness="1">
+						<StackPanel>
+							<TextBlock>dsdsds</TextBlock>
+							<TextBlock>dsdsds</TextBlock>
+							<TextBlock>dsdsds</TextBlock>
+							<TextBlock>dsdsds</TextBlock>
+						</StackPanel>
+					</Border>
+					
+				</DockPanel>
 
 			</StackPanel>
 

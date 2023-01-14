@@ -38,22 +38,20 @@ namespace ServerCreation.Commands
                     return;
                 }
 
-                FileDowloader dwnder = new();
 
                 string dlink = UrlGenerator.GetPaperDowload(UCServerCreateViewModel.SelectedVersion, UCServerCreateViewModel.SelectedBuild);
+                FileDowloader dwnder = new();
+
+                UCLogsViewModel.Log("Try dowload.....");
+                UCLogsViewModel.Log(dlink);
                 dwnder.Dowload(dlink, UCServerCreateViewModel.FileLocation.Value);
-                UCLogsViewModel.TextLogs.Value += dlink;
+
+                UCLogsViewModel.Log($"Was started {dwnder.WasLastDwnStarted}");
 
                 UCServerCreateViewModel.DowloadPersents.Value = dwnder.Info.PersentsReady;
-                UCLogsViewModel.TextLogs.Value += dwnder.IsDowloading;
-                UCLogsViewModel.TextLogs.Value += dwnder.IsDowloadFinished;
+                UCLogsViewModel.Log($"{dwnder.IsDowloading}");
+                UCLogsViewModel.Log($"{dwnder.IsDowloadFinished}");
 
-                var dtask = Task.Factory.StartNew(() =>
-                {
-
-
-
-                });
 
             }
             else
